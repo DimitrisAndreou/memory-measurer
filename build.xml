@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="MemoryMeasurer" default="default" basedir=".">
+    <description>Builds, tests, and runs the project MonitoringTools.</description>
+    <import file="nbproject/build-impl.xml"/>
+    
+    <target name="dist" depends="clean,compile,jar,javadoc"
+            description="Create a self-contained, package with this project's artifacts">
+        <delete dir="nbproject/private"/>
+        <property name="zip.file" value="dist/MemoryMeasurer.zip"/>
+        <zip destfile="${zip.file}">
+            <zipfileset dir="src" prefix="src"/>
+            <zipfileset dir="test" prefix="test"/>
+            <zipfileset file="LICENSE.txt" prefix=""/>
+            <zipfileset file="build.xml" prefix=""/>
+            <zipfileset file="readme.txt" prefix=""/>
+            <zipfileset dir="nbproject" prefix="nbproject"/>
+            <zipfileset dir="lib" prefix="lib"/>
+            <zipfileset file="${dist.jar}" prefix="dist"/>
+        </zip>
+    </target>
+</project>
