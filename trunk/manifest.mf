@@ -1,1 +1,1 @@
-Premain-Class: gr.forth.ics.memorymeasurer.InstrumentationGrabber
+Premain-Class: objectexplorer.InstrumentationGrabber
