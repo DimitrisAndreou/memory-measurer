@@ -1,19 +1,18 @@
 package objectexplorer;
 
-import com.google.common.base.Joiner;
 import com.google.common.base.Preconditions;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 import java.lang.reflect.Field;
 import java.util.ArrayDeque;
-import java.util.Collections;
 import java.util.Deque;
 import java.util.Iterator;
-import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class Chain {
+/**
+ * A chain of references, which starts at a root object and leads to a particular value
+ * (either an object or a primitive).
+ */
+public abstract class Chain {
     private final Object value;
     private final Chain parent;
 
@@ -23,7 +22,12 @@ public class Chain {
     }
 
     static Chain root(Object value) {
-        return new Chain(null, value);
+        return new Chain(null, Preconditions.checkNotNull(value)) {
+            @Override
+            public Class<?> getValueType() {
+                return getValue().getClass();
+            }
+        };
     }
 
     FieldChain appendField(Field field, Object value) {
@@ -34,32 +38,61 @@ public class Chain {
         return new ArrayIndexChain(this, arrayIndex, value);
     }
 
+    /**
+     * Returns whether this chain has a parent. This returns false only when this
+     * chain represents the root object itself.
+     */
     public boolean hasParent() {
         return parent != null;
     }
 
+    /**
+     * Returns the parent chain, from which this chain was created.
+     * @throws IllegalStateException if {@code !hasParent()}, then an
+     */
     public @Nonnull Chain getParent() {
         Preconditions.checkState(parent != null, "This is the root value, it has no parent");
         return parent;
     }
 
+    /**
+     * Returns the value that this chain leads to. If the value is a primitive, a wrapper
+     * object is returned instead.
+     */
     public @Nullable Object getValue() {
         return value;
     }
 
+    public abstract @Nonnull Class<?> getValueType();
+
+    /**
+     * Returns whether the connection of the parent chain and this chain is
+     * through a field (of the getParent().getValue().getClass() class).
+     */
     public boolean isThroughField() {
         return false;
     }
 
+    /**
+     * Returns whether the connection of the parent chain and this chain is
+     * through an array index, i.e. the parent leads to an array, and this chain
+     * leads to an element of that array.
+     */
     public boolean isThroughArrayIndex() {
         return false;
     }
 
+    /**
+     * Returns whether the value of this chain represents a primitive.
+     */
     public boolean isPrimitive() {
-        return false;
+        return getValueType().isPrimitive();
     }
 
-    Object getRoot() {
+    /**
+     * Returns the root object of this chain.
+     */
+    public @Nonnull Object getRoot() {
         Chain current = this;
         while (current.hasParent()) {
             current = current.getParent();
@@ -95,7 +128,7 @@ public class Chain {
         return sb.toString();
     }
 
-    public static class FieldChain extends Chain {
+    static class FieldChain extends Chain {
         private final Field field;
 
         FieldChain(Chain parent, Field referringField, Object value) {
@@ -114,8 +147,8 @@ public class Chain {
         }
 
         @Override
-        public boolean isPrimitive() {
-            return field.getType().isPrimitive();
+        public Class<?> getValueType() {
+            return field.getType();
         }
 
         public Field getField() {
@@ -123,7 +156,7 @@ public class Chain {
         }
     }
 
-    public static class ArrayIndexChain extends Chain {
+    static class ArrayIndexChain extends Chain {
         private final int index;
 
         ArrayIndexChain(Chain parent, int index, Object value) {
@@ -142,8 +175,8 @@ public class Chain {
         }
 
         @Override
-        public boolean isPrimitive() {
-            return getParent().getValue().getClass().getComponentType().isPrimitive();
+        public Class<?> getValueType() {
+            return getParent().getValue().getClass().getComponentType();
         }
 
         public int getArrayIndex() {

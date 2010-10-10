@@ -7,7 +7,6 @@ import java.lang.instrument.Instrumentation;
  * Agent call-back that stores the {@link Instrumentation} provided by the JVM.
  * 
  * <p>Not to be used directly.
- * @author Andreou Dimitris, email: jim.andreou (at) gmail (dot) com
  */
 public class InstrumentationGrabber {
     private static volatile Instrumentation instrumentation;

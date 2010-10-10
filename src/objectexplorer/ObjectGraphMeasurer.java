@@ -4,32 +4,71 @@ import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
+import com.google.common.collect.HashMultiset;
 import com.google.common.collect.ImmutableList;
-import java.lang.instrument.Instrumentation;
+import com.google.common.collect.ImmutableMultiset;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Multiset;
 import java.util.EnumSet;
 import objectexplorer.ObjectExplorer.Feature;
 
+/**
+ * A tool that can qualitatively measure the footprint
+ * ({@literal e.g.}, number of objects, references,
+ * primitives) of a graph structure.
+ */
 public class ObjectGraphMeasurer {
-    public static class Stats {
+    /**
+     * The footprint of an object graph.
+     */
+    public static class Footprint {
         private final int objects;
         private final int references;
-        private final int primitives;
+        private final ImmutableMultiset<Class<?>> primitives;
 
-        Stats(int objects, int references, int primitives) {
+        private static final ImmutableSet<Class<?>> primitiveTypes = ImmutableSet.<Class<?>>of(
+                boolean.class, byte.class, char.class, short.class,
+                int.class, float.class, long.class, double.class);
+
+        /**
+         * Constructs a Footprint, by specifying the number of objects, references,
+         * and primitives (represented as a {@link Multiset}).
+         *
+         * @param objects the number of objects
+         * @param references the number of references
+         * @param primitives the number of primitives (represented by the
+         * respective primitive classes, e.g. {@code int.class} etc)
+         */
+        public Footprint(int objects, int references, Multiset<Class<?>> primitives) {
+            Preconditions.checkArgument(objects >= 0, "Negative number of objects");
+            Preconditions.checkArgument(references >= 0, "Negative number of references");
+            Preconditions.checkArgument(primitiveTypes.containsAll(primitives.elementSet()),
+                    "Unexpected primitive type");
             this.objects = objects;
             this.references = references;
-            this.primitives = primitives;
+            this.primitives = ImmutableMultiset.copyOf(primitives);
         }
 
+        /**
+         * Returns the number of objects of this footprint.
+         */
         public int getObjects() {
             return objects;
         }
 
+        /**
+         * Returns the number of references of this footprint.
+         */
         public int getReferences() {
             return references;
         }
 
-        public int getPrimitives() {
+        /**
+         * Returns the number of primitives of this footprint
+         * (represented by the respective primitive classes,
+         * {@literal e.g.} {@code int.class} etc).
+         */
+        public ImmutableMultiset<Class<?>> getPrimitives() {
             return primitives;
         }
 
@@ -43,27 +82,53 @@ public class ObjectGraphMeasurer {
         }
     }
 
-    public static Stats measure(Object o) {
-        return measure(o, Predicates.alwaysTrue());
+    /**
+     * Measures the footprint of the specified object graph.
+     * The object graph is defined by a root object and whatever object can be reached
+     * through that, excluding static fields, {@code Class} objects, and
+     * fields defined in {@code enum}s (all these are considered shared values,
+     * which should not contribute to the cost of any single object graph).     
+     *
+     * <p>Equivalent to {@code measure(rootObject, Predicates.alwaysTrue())}.
+     *
+     * @param rootObject the root object of the object graph
+     * @return the footprint of the object graph
+     */
+    public static Footprint measure(Object rootObject) {
+        return measure(rootObject, Predicates.alwaysTrue());
     }
 
-    public static Stats measure(Object o, Predicate<Object> predicate) {
-        Preconditions.checkNotNull(predicate, "predicate");
+    /**
+     * Measures the footprint of the specified object graph.
+     * The object graph is defined by a root object and whatever object can be reached
+     * through that, excluding static fields, {@code Class} objects, and
+     * fields defined in {@code enum}s (all these are considered shared values,
+     * which should not contribute to the cost of any single object graph), and
+     * any object for which the user-provided predicate returns {@code false}.
+     *
+     * @param rootObject the root object of the object graph
+     * @param objectAcceptor a predicate that returns {@code true} for objects to
+     * be explored (and treated as part of the footprint), or {@code false} to
+     * forbid the traversal to traverse the given object
+     * @return the footprint of the object graph
+     */
+    public static Footprint measure(Object o, Predicate<Object> objectAcceptor) {
+        Preconditions.checkNotNull(objectAcceptor, "predicate");
 
         Predicate<Chain> completePredicate = Predicates.and(ImmutableList.of(
             new ObjectExplorer.AtMostOncePredicate(),
             ObjectExplorer.notEnumFields,
-            Predicates.compose(predicate, ObjectExplorer.chainToObject)
+            Predicates.compose(objectAcceptor, ObjectExplorer.chainToObject)
         ));
 
         return ObjectExplorer.exploreObject(o, new ObjectGraphVisitor(completePredicate),
                 EnumSet.of(Feature.VISIT_PRIMITIVES, Feature.VISIT_NULL));
     }
 
-    private static class ObjectGraphVisitor implements ObjectVisitor<Stats> {
+    private static class ObjectGraphVisitor implements ObjectVisitor<Footprint> {
         private int objects;
         private int references = -1; //to account for the root object, which has no reference leading to it
-        private int primitives;
+        private final Multiset<Class<?>> primitives = HashMultiset.create();
         private final Predicate<Chain> predicate;
 
         ObjectGraphVisitor(Predicate<Chain> predicate) {
@@ -71,8 +136,8 @@ public class ObjectGraphMeasurer {
         }
 
         public Traversal visit(Chain chain) {
-            if (chain.isPrimitive() || chain.getValue() instanceof String) {
-                primitives++;
+            if (chain.isPrimitive()) {
+                primitives.add(chain.getValueType());
                 return Traversal.SKIP;
             } else {
                 references++;
@@ -84,8 +149,8 @@ public class ObjectGraphMeasurer {
             return Traversal.SKIP;
         }
 
-        public Stats result() {
-            return new Stats(objects, references, primitives);
+        public Footprint result() {
+            return new Footprint(objects, references, ImmutableMultiset.copyOf(primitives));
         }
     }
 }
