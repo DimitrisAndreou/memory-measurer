@@ -41,6 +41,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
 import java.util.concurrent.TimeUnit;
+import objectexplorer.MemoryMeasurer;
 import objectexplorer.ObjectGraphMeasurer;
 import objectexplorer.ObjectGraphMeasurer.Footprint;
 
@@ -128,8 +129,8 @@ public class ElementCostOfDataStructures {
         ImmutableList<Analyzer> analyzers = builder.build();
         for (Analyzer analyzer : analyzers) {
             AvgEntryCost cost = analyzer.averageEntryCost(16, 1024 * 16);
-            System.out.printf("%40s -- Objects = %5.2f Refs = %5.2f Primitives = %s%n",
-                    analyzer.getDescription(), cost.objects, cost.refs, cost.primitives);
+            System.out.printf("%40s -- Bytes = %6.2f, Objects = %5.2f Refs = %5.2f Primitives = %s%n",
+                    analyzer.getDescription(), cost.bytes, cost.objects, cost.refs, cost.primitives);
         }
     }
 
@@ -229,12 +230,15 @@ class Analyzer {
         Predicate<Object> predicate = Predicates.not(Predicates.instanceOf(
                 supplierAndPopulator.populator.entryType()));
         Footprint initialCost = ObjectGraphMeasurer.measure(population.target, predicate);
+        long bytes1 = MemoryMeasurer.measureBytes(population.target, predicate);
         for (int i = 0; i < entriesToAdd; i++) {
             population.addEntry();
         }
         Footprint finalCost = ObjectGraphMeasurer.measure(population.target, predicate);
+        long bytes2 = MemoryMeasurer.measureBytes(population.target, predicate);
         double objects = (finalCost.getObjects() - initialCost.getObjects()) / (double) entriesToAdd;
         double refs = (finalCost.getReferences() - initialCost.getReferences()) / (double) entriesToAdd;
+        double bytes = (bytes2 - bytes1) / (double)entriesToAdd;
 
         Map<Class<?>, Double> primitives = Maps.newHashMap();
         for (Class<?> primitiveType : primitiveTypes) {
@@ -245,7 +249,7 @@ class Analyzer {
             }
         }
 
-        return new AvgEntryCost(objects, refs, primitives);
+        return new AvgEntryCost(objects, refs, primitives, bytes);
     }
 
     private static final ImmutableSet<Class<?>> primitiveTypes = ImmutableSet.<Class<?>>of(
@@ -315,9 +319,11 @@ class AvgEntryCost {
     final double objects;
     final double refs;
     final ImmutableMap<Class<?>, Double> primitives;
-    AvgEntryCost(double objects, double refs, Map<Class<?>, Double> primitives) {
+    final double bytes;
+    AvgEntryCost(double objects, double refs, Map<Class<?>, Double> primitives, double bytes) {
         this.objects = objects;
         this.refs = refs;
         this.primitives = ImmutableMap.copyOf(primitives);
+        this.bytes = bytes;
     }
 }

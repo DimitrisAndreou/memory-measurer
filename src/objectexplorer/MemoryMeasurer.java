@@ -66,7 +66,7 @@ public class MemoryMeasurer {
 
         Predicate<Chain> completePredicate = Predicates.and(ImmutableList.of(
             new ObjectExplorer.AtMostOncePredicate(),
-            ObjectExplorer.notEnumFields,
+            ObjectExplorer.notEnumFieldsOrClasses,
             Predicates.compose(objectAcceptor, ObjectExplorer.chainToObject)
         ));
 
