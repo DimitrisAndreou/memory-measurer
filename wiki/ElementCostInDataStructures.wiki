@@ -56,3 +56,5 @@ Ever wondered what's the cost of adding an entry to a HashMap? Or a new element 
                     TreeMultimap (Worst) -- Bytes = 232.00, Objects =  4.00 Refs = 18.00 Primitives = {int=2.0, boolean=2.0}
                      TreeMultimap (Best) -- Bytes =  64.00, Objects =  1.00 Refs =  5.00 Primitives = {boolean=1.0}
 }}}
+
+({{{HashMultimap (Worst)}}} means that every key only maps to a single value. The huge memory cost you see is because by default a big hashtable is allocated per key - [http://guava-libraries.googlecode.com/svn/trunk/javadoc/com/google/common/collect/HashMultimap.html#create(int, int) you can fine-tune this size though])
