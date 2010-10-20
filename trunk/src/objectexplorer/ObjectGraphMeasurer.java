@@ -116,9 +116,9 @@ public class ObjectGraphMeasurer {
         Preconditions.checkNotNull(objectAcceptor, "predicate");
 
         Predicate<Chain> completePredicate = Predicates.and(ImmutableList.of(
-            new ObjectExplorer.AtMostOncePredicate(),
-            ObjectExplorer.notEnumFields,
-            Predicates.compose(objectAcceptor, ObjectExplorer.chainToObject)
+            ObjectExplorer.notEnumFieldsOrClasses,
+            Predicates.compose(objectAcceptor, ObjectExplorer.chainToObject),
+            new ObjectExplorer.AtMostOncePredicate()
         ));
 
         return ObjectExplorer.exploreObject(o, new ObjectGraphVisitor(completePredicate),

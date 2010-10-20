@@ -144,10 +144,10 @@ public class ObjectExplorer {
         }
     };
 
-    static final Predicate<Chain> notEnumFields = new Predicate<Chain>(){
+    static final Predicate<Chain> notEnumFieldsOrClasses = new Predicate<Chain>(){
         public boolean apply(Chain chain) {
-            return !(chain instanceof FieldChain) ||
-                    ((FieldChain)chain).getField().getDeclaringClass() != Enum.class;
+            return !(Enum.class.isAssignableFrom(chain.getValueType())
+                    || chain.getValue() instanceof Class<?>);
         }
     };
 
