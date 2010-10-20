@@ -6,53 +6,53 @@
 Ever wondered what's the cost of adding an entry to a HashMap? Or a new element in a TreeSet? No more head-scratching, you can consult the following list and know very precisely the cost per elements in your data structures (using their default settings when not specified).
 
 = Cost per element in various well-known Java/Guava data structures =
-
+(*Note*: this test ran on a 64bit machine, so byte measurements should be roughly half on a 32bit.)
 {{{
-                               ArrayList -- Objects =  0.00 Refs =  1.06 Primitives = {}
-                              LinkedList -- Objects =  1.00 Refs =  3.00 Primitives = {}
-                              ArrayDeque -- Objects =  0.00 Refs =  2.00 Primitives = {}
-                                 HashSet -- Objects =  1.00 Refs =  5.00 Primitives = {int=1.0}
-                           LinkedHashSet -- Objects =  1.00 Refs =  7.00 Primitives = {int=1.0}
-                           PriorityQueue -- Objects =  0.00 Refs =  1.20 Primitives = {}
-                   PriorityBlockingQueue -- Objects =  0.00 Refs =  1.20 Primitives = {}
-                                 TreeSet -- Objects =  1.00 Refs =  5.00 Primitives = {boolean=1.0}
-                   ConcurrentSkipListSet -- Objects =  1.50 Refs =  4.49 Primitives = {int=4.8828125E-4}
-                    CopyOnWriteArrayList -- Objects =  0.00 Refs =  1.00 Primitives = {}
-                     CopyOnWriteArraySet -- Objects =  0.00 Refs =  1.00 Primitives = {}
-                              DelayQueue -- Objects =  0.00 Refs =  1.20 Primitives = {}
-                     LinkedBlockingQueue -- Objects =  1.00 Refs =  2.00 Primitives = {}
-                     LinkedBlockingDeque -- Objects =  1.00 Refs =  3.00 Primitives = {}
-                                 HashMap -- Objects =  1.00 Refs =  5.00 Primitives = {int=1.0}
-                           LinkedHashMap -- Objects =  1.00 Refs =  7.00 Primitives = {int=1.0}
-                                 TreeMap -- Objects =  1.00 Refs =  5.00 Primitives = {boolean=1.0}
-                             WeakHashMap -- Objects =  1.00 Refs =  8.00 Primitives = {int=1.0}
-                       ConcurrentHashMap -- Objects =  1.00 Refs =  5.00 Primitives = {int=1.0}
-                                MapMaker -- Objects =  1.00 Refs =  5.00 Primitives = {int=1.0}
-                        MapMaker_Expires -- Objects =  2.00 Refs =  9.00 Primitives = {int=1.0, long=1.0}
-                         MapMaker_Evicts -- Objects =  2.00 Refs =  9.00 Primitives = {int=1.0}
-                        MapMaker_Expires -- Objects =  2.00 Refs =  9.00 Primitives = {int=1.0, long=1.0}
-                        MapMaker_Expires -- Objects =  2.00 Refs =  9.00 Primitives = {int=1.0, long=1.0}
-                        MapMaker_Expires -- Objects =  2.00 Refs =  9.00 Primitives = {int=1.0, long=1.0}
-                  MapMaker_ExpiresEvicts -- Objects =  2.00 Refs = 11.00 Primitives = {int=1.0, long=1.0}
-                       MapMaker_SoftKeys -- Objects =  2.00 Refs = 10.00 Primitives = {int=1.0, long=1.0}
-                     MapMaker_SoftValues -- Objects =  2.00 Refs = 11.00 Primitives = {int=1.0, long=1.0}
-                 MapMaker_SoftKeysValues -- Objects =  2.00 Refs = 14.00 Primitives = {int=1.0, long=2.0}
-                MapMaker_Evicts_SoftKeys -- Objects =  2.00 Refs = 12.00 Primitives = {int=1.0, long=1.0}
-              MapMaker_Evicts_SoftValues -- Objects =  2.00 Refs = 13.00 Primitives = {int=1.0, long=1.0}
-          MapMaker_Evicts_SoftKeysValues -- Objects =  2.00 Refs = 16.00 Primitives = {int=1.0, long=2.0}
-               MapMaker_Expires_SoftKeys -- Objects =  2.00 Refs = 12.00 Primitives = {int=1.0, long=2.0}
-             MapMaker_Expires_SoftValues -- Objects =  2.00 Refs = 13.00 Primitives = {int=1.0, long=2.0}
-         MapMaker_Expires_SoftKeysValues -- Objects =  2.00 Refs = 16.00 Primitives = {int=1.0, long=3.0}
-         MapMaker_ExpiresEvicts_SoftKeys -- Objects =  2.00 Refs = 14.00 Primitives = {int=1.0, long=2.0}
-       MapMaker_ExpiresEvicts_SoftValues -- Objects =  2.00 Refs = 15.00 Primitives = {int=1.0, long=2.0}
-   MapMaker_ExpiresEvicts_SoftKeysValues -- Objects =  2.00 Refs = 18.00 Primitives = {int=1.0, long=3.0}
-              HashMultiset (frequency=1) -- Objects =  2.00 Refs =  5.00 Primitives = {int=2.0}
-              TreeMultiset (frequency=1) -- Objects =  2.00 Refs =  5.00 Primitives = {int=1.0, boolean=1.0}
-                               HashBiMap -- Objects =  2.00 Refs = 10.00 Primitives = {int=2.0}
-                    HashMultimap (Worst) -- Objects =  5.00 Refs = 29.00 Primitives = {float=1.0, int=5.0}
-                     HashMultimap (Best) -- Objects =  1.00 Refs =  5.00 Primitives = {int=1.0}
-               ArrayListMultimap (Worst) -- Objects =  3.00 Refs = 16.00 Primitives = {int=3.0}
-                ArrayListMultimap (Best) -- Objects =  0.00 Refs =  1.06 Primitives = {}
-                    TreeMultimap (Worst) -- Objects =  4.00 Refs = 18.00 Primitives = {int=2.0, boolean=2.0}
-                     TreeMultimap (Best) -- Objects =  1.00 Refs =  5.00 Primitives = {boolean=1.0}
+                               ArrayList -- Bytes =   8.50, Objects =  0.00 Refs =  1.06 Primitives = {}
+                              LinkedList -- Bytes =  40.00, Objects =  1.00 Refs =  3.00 Primitives = {}
+                              ArrayDeque -- Bytes =  15.98, Objects =  0.00 Refs =  2.00 Primitives = {}
+                                 HashSet -- Bytes =  63.98, Objects =  1.00 Refs =  5.00 Primitives = {int=1.0}
+                           LinkedHashSet -- Bytes =  79.98, Objects =  1.00 Refs =  7.00 Primitives = {int=1.0}
+                           PriorityQueue -- Bytes =   9.60, Objects =  0.00 Refs =  1.20 Primitives = {}
+                   PriorityBlockingQueue -- Bytes =   9.60, Objects =  0.00 Refs =  1.20 Primitives = {}
+                                 TreeSet -- Bytes =  64.00, Objects =  1.00 Refs =  5.00 Primitives = {boolean=1.0}
+                   ConcurrentSkipListSet -- Bytes =  59.52, Objects =  1.49 Refs =  4.46 Primitives = {int=5.4931640625E-4}
+                    CopyOnWriteArrayList -- Bytes =   8.00, Objects =  0.00 Refs =  1.00 Primitives = {}
+                     CopyOnWriteArraySet -- Bytes =   8.00, Objects =  0.00 Refs =  1.00 Primitives = {}
+                              DelayQueue -- Bytes =   9.60, Objects =  0.00 Refs =  1.20 Primitives = {}
+                     LinkedBlockingQueue -- Bytes =  32.00, Objects =  1.00 Refs =  2.00 Primitives = {}
+                     LinkedBlockingDeque -- Bytes =  40.00, Objects =  1.00 Refs =  3.00 Primitives = {}
+                                 HashMap -- Bytes =  63.98, Objects =  1.00 Refs =  5.00 Primitives = {int=1.0}
+                           LinkedHashMap -- Bytes =  79.98, Objects =  1.00 Refs =  7.00 Primitives = {int=1.0}
+                                 TreeMap -- Bytes =  64.00, Objects =  1.00 Refs =  5.00 Primitives = {boolean=1.0}
+                             WeakHashMap -- Bytes =  87.98, Objects =  1.00 Refs =  8.00 Primitives = {int=1.0}
+                       ConcurrentHashMap -- Bytes =  63.99, Objects =  1.00 Refs =  5.00 Primitives = {int=1.0}
+                                MapMaker -- Bytes =  63.99, Objects =  1.00 Refs =  5.00 Primitives = {int=1.0}
+                        MapMaker_Expires -- Bytes = 119.99, Objects =  2.00 Refs =  9.00 Primitives = {int=1.0, long=1.0}
+                         MapMaker_Evicts -- Bytes = 111.99, Objects =  2.00 Refs =  9.00 Primitives = {int=1.0}
+                        MapMaker_Expires -- Bytes = 119.99, Objects =  2.00 Refs =  9.00 Primitives = {int=1.0, long=1.0}
+                        MapMaker_Expires -- Bytes = 119.99, Objects =  2.00 Refs =  9.00 Primitives = {int=1.0, long=1.0}
+                        MapMaker_Expires -- Bytes = 119.99, Objects =  2.00 Refs =  9.00 Primitives = {int=1.0, long=1.0}
+                  MapMaker_ExpiresEvicts -- Bytes = 135.99, Objects =  2.00 Refs = 11.00 Primitives = {int=1.0, long=1.0}
+                       MapMaker_SoftKeys -- Bytes = 127.99, Objects =  2.00 Refs = 10.00 Primitives = {int=1.0, long=1.0}
+                     MapMaker_SoftValues -- Bytes = 135.99, Objects =  2.00 Refs = 11.00 Primitives = {int=1.0, long=1.0}
+                 MapMaker_SoftKeysValues -- Bytes = 167.99, Objects =  2.00 Refs = 14.00 Primitives = {int=1.0, long=2.0}
+                MapMaker_Evicts_SoftKeys -- Bytes = 143.99, Objects =  2.00 Refs = 12.00 Primitives = {int=1.0, long=1.0}
+              MapMaker_Evicts_SoftValues -- Bytes = 151.99, Objects =  2.00 Refs = 13.00 Primitives = {int=1.0, long=1.0}
+          MapMaker_Evicts_SoftKeysValues -- Bytes = 183.99, Objects =  2.00 Refs = 16.00 Primitives = {int=1.0, long=2.0}
+               MapMaker_Expires_SoftKeys -- Bytes = 151.99, Objects =  2.00 Refs = 12.00 Primitives = {int=1.0, long=2.0}
+             MapMaker_Expires_SoftValues -- Bytes = 159.99, Objects =  2.00 Refs = 13.00 Primitives = {int=1.0, long=2.0}
+         MapMaker_Expires_SoftKeysValues -- Bytes = 191.99, Objects =  2.00 Refs = 16.00 Primitives = {int=1.0, long=3.0}
+         MapMaker_ExpiresEvicts_SoftKeys -- Bytes = 167.99, Objects =  2.00 Refs = 14.00 Primitives = {int=1.0, long=2.0}
+       MapMaker_ExpiresEvicts_SoftValues -- Bytes = 175.99, Objects =  2.00 Refs = 15.00 Primitives = {int=1.0, long=2.0}
+   MapMaker_ExpiresEvicts_SoftKeysValues -- Bytes = 207.99, Objects =  2.00 Refs = 18.00 Primitives = {int=1.0, long=3.0}
+              HashMultiset (frequency=1) -- Bytes =  87.98, Objects =  2.00 Refs =  5.00 Primitives = {int=2.0}
+              TreeMultiset (frequency=1) -- Bytes =  88.00, Objects =  2.00 Refs =  5.00 Primitives = {int=1.0, boolean=1.0}
+                               HashBiMap -- Bytes = 127.97, Objects =  2.00 Refs = 10.00 Primitives = {int=2.0}
+                    HashMultimap (Worst) -- Bytes = 351.98, Objects =  5.00 Refs = 29.00 Primitives = {int=5.0, float=1.0}
+                     HashMultimap (Best) -- Bytes =  63.98, Objects =  1.00 Refs =  5.00 Primitives = {int=1.0}
+               ArrayListMultimap (Worst) -- Bytes = 207.98, Objects =  3.00 Refs = 16.00 Primitives = {int=3.0}
+                ArrayListMultimap (Best) -- Bytes =   8.50, Objects =  0.00 Refs =  1.06 Primitives = {}
+                    TreeMultimap (Worst) -- Bytes = 232.00, Objects =  4.00 Refs = 18.00 Primitives = {int=2.0, boolean=2.0}
+                     TreeMultimap (Best) -- Bytes =  64.00, Objects =  1.00 Refs =  5.00 Primitives = {boolean=1.0}
 }}}
