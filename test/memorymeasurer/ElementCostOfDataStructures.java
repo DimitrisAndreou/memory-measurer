@@ -128,7 +128,7 @@ public class ElementCostOfDataStructures {
 
         ImmutableList<Analyzer> analyzers = builder.build();
         for (Analyzer analyzer : analyzers) {
-            AvgEntryCost cost = analyzer.averageEntryCost(16, 1024 * 16);
+            AvgEntryCost cost = analyzer.averageEntryCost(16, 1024 * 31);
             System.out.printf("%40s -- Bytes = %6.2f, Objects = %5.2f Refs = %5.2f Primitives = %s%n",
                     analyzer.getDescription(), cost.bytes, cost.objects, cost.refs, cost.primitives);
         }
