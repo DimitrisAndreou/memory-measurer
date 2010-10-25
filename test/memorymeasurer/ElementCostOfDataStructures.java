@@ -55,7 +55,7 @@ import objectexplorer.ObjectGraphMeasurer.Footprint;
 
 public class ElementCostOfDataStructures {
     public static void main(String[] args) throws Exception {
-        caption("Basic Lists, Sets, Maps");
+        caption("  Basic Lists, Sets, Maps ");
 
         analyze(new CollectionPopulator(defaultSupplierFor(ArrayList.class)));
         analyze(new ImmutableListPopulator());
@@ -109,7 +109,7 @@ public class ElementCostOfDataStructures {
         analyze("MapMaker_ExpiresEvicts_SoftKeysValues", new MapPopulator(new Supplier<Map>() { public Map get() { return
             new MapMaker().maximumSize(1000000).expiration(3, TimeUnit.DAYS).softKeys().softValues().makeMap(); } }));
 
-        caption("Multisets");
+        caption("        Multisets         ");
 
         analyze("HashMultiset_Worst", new MultisetPopulator_Worst(new Supplier<Multiset>() { public Multiset get() { return
             HashMultiset.create(); } }));
@@ -123,7 +123,7 @@ public class ElementCostOfDataStructures {
         analyze("TreeMultiset_Best ", new MultisetPopulator_Best(new Supplier<Multiset>() { public Multiset get() { return
             TreeMultiset.create(); } }, EntryFactories.COMPARABLE));
 
-        caption("Multimaps");
+        caption("        Multimaps         ");
 
         analyze("HashMultimap_Worst", new MultimapPopulator_Worst(new Supplier<Multimap>() { public Multimap get() { return
             HashMultimap.create(); } }));
@@ -143,13 +143,13 @@ public class ElementCostOfDataStructures {
             ArrayListMultimap.create(); } }));
         analyze(new ImmutableListMultimapPopulator_Best());
 
-        caption("BiMaps");
+        caption("          BiMaps          ");
 
         analyze("HashBiMap", new MapPopulator(new Supplier<Map>() { public Map get() { return
             HashBiMap.create(); } }));
         analyze(new ImmutableBiMapPopulator());
 
-        caption("Misc");
+        caption("           Misc           ");
 
         analyze(new MapPopulator(defaultSupplierFor(WeakHashMap.class)));
         analyze(new CollectionPopulator(defaultSupplierFor(LinkedList.class)));
