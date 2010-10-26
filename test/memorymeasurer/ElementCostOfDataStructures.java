@@ -132,18 +132,18 @@ public class ElementCostOfDataStructures {
             HashMultimap.create(); } }));
         analyze("TreeMultimap_Worst", new MultimapPopulator_Worst(new Supplier<Multimap>() { public Multimap get() { return
             TreeMultimap.create(); } }, EntryFactories.COMPARABLE));
-        analyze(new ImmutableMultimapPopulator_Worst());
         analyze("ArrayListMultimap_Worst", new MultimapPopulator_Worst(new Supplier<Multimap>() { public Multimap get() { return
             ArrayListMultimap.create(); } }));
+        analyze(new ImmutableMultimapPopulator_Worst());
         analyze(new ImmutableListMultimapPopulator_Worst());
 
         analyze("HashMultimap_Best ", new MultimapPopulator_Best(new Supplier<Multimap>() { public Multimap get() { return
             HashMultimap.create(); } }));
         analyze("TreeMultimap_Best ", new MultimapPopulator_Best(new Supplier<Multimap>() { public Multimap get() { return
             TreeMultimap.create(); } }, EntryFactories.COMPARABLE));
-        analyze(new ImmutableMultimapPopulator_Best());
         analyze("ArrayListMultimap_Best ", new MultimapPopulator_Best(new Supplier<Multimap>() { public Multimap get() { return
             ArrayListMultimap.create(); } }));
+        analyze(new ImmutableMultimapPopulator_Best());
         analyze(new ImmutableListMultimapPopulator_Best());
 
         caption("          Tables          ");
