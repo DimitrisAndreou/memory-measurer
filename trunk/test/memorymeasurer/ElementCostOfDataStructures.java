@@ -6,6 +6,7 @@ import com.google.common.base.Predicates;
 import com.google.common.base.Supplier;
 import com.google.common.base.Throwables;
 import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.HashMultiset;
@@ -23,6 +24,8 @@ import com.google.common.collect.MapMaker;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multiset;
+import com.google.common.collect.Table;
+import com.google.common.collect.TreeBasedTable;
 import com.google.common.collect.TreeMultimap;
 import com.google.common.collect.TreeMultiset;
 import java.lang.reflect.Constructor;
@@ -142,6 +145,13 @@ public class ElementCostOfDataStructures {
         analyze("ArrayListMultimap_Best ", new MultimapPopulator_Best(new Supplier<Multimap>() { public Multimap get() { return
             ArrayListMultimap.create(); } }));
         analyze(new ImmutableListMultimapPopulator_Best());
+
+        caption("          Tables          ");
+
+        analyze("HashBasedTable", new TablePopulator_Worst(new Supplier<Table>() { public Table get() { return
+            HashBasedTable.create(); } } ));
+        analyze("TreeBasedTable", new TablePopulator_Worst(new Supplier<Table>() { public Table get() { return
+            TreeBasedTable.create(); } }, EntryFactories.COMPARABLE));
 
         caption("          BiMaps          ");
 
@@ -383,6 +393,19 @@ class MultisetPopulator_Best extends MutablePopulator<Multiset> {
     private final Object key = newEntry();
     public void addEntry(Multiset multiset) {
         multiset.add(key);
+    }
+}
+
+class TablePopulator_Worst extends MutablePopulator<Table> {
+    TablePopulator_Worst(Supplier<? extends Table> tableFactory) {
+        super(tableFactory);
+    }
+    TablePopulator_Worst(Supplier<? extends Table> tableFactory, EntryFactory entryFactory) {
+        super(tableFactory, entryFactory);
+    }
+
+    public void addEntry(Table table) {
+        table.put(newEntry(), newEntry(), newEntry());
     }
 }
 
