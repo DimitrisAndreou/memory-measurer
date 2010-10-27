@@ -122,7 +122,6 @@ public class ElementCostOfDataStructures {
             HashMultiset.create(); } }));
         analyze("LinkedHashMultiset_Worst", new MultisetPopulator_Worst(new Supplier<Multiset>() { public Multiset get() { return
             LinkedHashMultiset.create(); } }));
-        analyze(new ImmutableSetMultimapPopulator_Worst());
         analyze("TreeMultiset_Worst", new MultisetPopulator_Worst(new Supplier<Multiset>() { public Multiset get() { return
             TreeMultiset.create(); } }, EntryFactories.COMPARABLE));
         analyze("ConcurrentHashMultiset_Worst", new MultisetPopulator_Worst(new Supplier<Multiset>() { public Multiset get() { return
@@ -134,10 +133,9 @@ public class ElementCostOfDataStructures {
             HashMultiset.create(); } }));
         analyze("LinkedHashMultiset_Best ", new MultisetPopulator_Best(new Supplier<Multiset>() { public Multiset get() { return
             LinkedHashMultiset.create(); } }));
-        analyze(new ImmutableSetMultimapPopulator_Best());
         analyze("TreeMultiset_Best ", new MultisetPopulator_Best(new Supplier<Multiset>() { public Multiset get() { return
             TreeMultiset.create(); } }, EntryFactories.COMPARABLE));
-        analyze("ConcurrentHashMultiset_Best", new MultisetPopulator_Best(new Supplier<Multiset>() { public Multiset get() { return
+        analyze("ConcurrentHashMultiset_Best ", new MultisetPopulator_Best(new Supplier<Multiset>() { public Multiset get() { return
             ConcurrentHashMultiset.create(); } }));
 
         caption("        Multimaps         ");
@@ -154,6 +152,7 @@ public class ElementCostOfDataStructures {
             LinkedListMultimap.create(); } }));
         analyze(new ImmutableMultimapPopulator_Worst());
         analyze(new ImmutableListMultimapPopulator_Worst());
+        analyze(new ImmutableSetMultimapPopulator_Worst());
 
         System.out.println();
 
@@ -165,10 +164,11 @@ public class ElementCostOfDataStructures {
             TreeMultimap.create(); } }, EntryFactories.COMPARABLE));
         analyze("ArrayListMultimap_Best ", new MultimapPopulator_Best(new Supplier<Multimap>() { public Multimap get() { return
             ArrayListMultimap.create(); } }));
-        analyze("LinkedListMultimap_Best", new MultimapPopulator_Best(new Supplier<Multimap>() { public Multimap get() { return
+        analyze("LinkedListMultimap_Best ", new MultimapPopulator_Best(new Supplier<Multimap>() { public Multimap get() { return
             LinkedListMultimap.create(); } }));
         analyze(new ImmutableMultimapPopulator_Best());
         analyze(new ImmutableListMultimapPopulator_Best());
+        analyze(new ImmutableSetMultimapPopulator_Best());
 
         caption("          Tables          ");
 
@@ -680,10 +680,10 @@ enum EntryFactories implements EntryFactory {
 class Element { }
 
 class ComparableElement extends Element implements Comparable {
-    public int compareTo(Object o) { return 1; }
+    public int compareTo(Object o) { if (this == o) return 0; else return 1; }
 }
 
 class DelayedElement extends Element implements Delayed {
     public long getDelay(TimeUnit unit) { return 0; }
-    public int compareTo(Delayed o) { return 1; }
+    public int compareTo(Delayed o) { if (this == o) return 0; else return 1; }
 }
