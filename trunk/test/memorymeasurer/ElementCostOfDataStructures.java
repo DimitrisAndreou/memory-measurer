@@ -21,6 +21,7 @@ import com.google.common.collect.ImmutableSetMultimap;
 import com.google.common.collect.ImmutableSortedMap;
 import com.google.common.collect.ImmutableSortedSet;
 import com.google.common.collect.LinkedHashMultimap;
+import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.MapMaker;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
@@ -137,6 +138,8 @@ public class ElementCostOfDataStructures {
             TreeMultimap.create(); } }, EntryFactories.COMPARABLE));
         analyze("ArrayListMultimap_Worst", new MultimapPopulator_Worst(new Supplier<Multimap>() { public Multimap get() { return
             ArrayListMultimap.create(); } }));
+        analyze("LinkedListMultimap_Worst", new MultimapPopulator_Worst(new Supplier<Multimap>() { public Multimap get() { return
+            LinkedListMultimap.create(); } }));
         analyze(new ImmutableMultimapPopulator_Worst());
         analyze(new ImmutableListMultimapPopulator_Worst());
 
@@ -148,6 +151,8 @@ public class ElementCostOfDataStructures {
             TreeMultimap.create(); } }, EntryFactories.COMPARABLE));
         analyze("ArrayListMultimap_Best ", new MultimapPopulator_Best(new Supplier<Multimap>() { public Multimap get() { return
             ArrayListMultimap.create(); } }));
+        analyze("LinkedListMultimap_Best", new MultimapPopulator_Worst(new Supplier<Multimap>() { public Multimap get() { return
+            LinkedListMultimap.create(); } }));
         analyze(new ImmutableMultimapPopulator_Best());
         analyze(new ImmutableListMultimapPopulator_Best());
 
