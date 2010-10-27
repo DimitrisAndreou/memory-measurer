@@ -6,6 +6,7 @@ import com.google.common.base.Predicates;
 import com.google.common.base.Supplier;
 import com.google.common.base.Throwables;
 import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.ConcurrentHashMultiset;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.HashMultimap;
@@ -21,6 +22,7 @@ import com.google.common.collect.ImmutableSetMultimap;
 import com.google.common.collect.ImmutableSortedMap;
 import com.google.common.collect.ImmutableSortedSet;
 import com.google.common.collect.LinkedHashMultimap;
+import com.google.common.collect.LinkedHashMultiset;
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.MapMaker;
 import com.google.common.collect.Maps;
@@ -118,15 +120,25 @@ public class ElementCostOfDataStructures {
 
         analyze("HashMultiset_Worst", new MultisetPopulator_Worst(new Supplier<Multiset>() { public Multiset get() { return
             HashMultiset.create(); } }));
+        analyze("LinkedHashMultiset_Worst", new MultisetPopulator_Worst(new Supplier<Multiset>() { public Multiset get() { return
+            LinkedHashMultiset.create(); } }));
         analyze(new ImmutableSetMultimapPopulator_Worst());
         analyze("TreeMultiset_Worst", new MultisetPopulator_Worst(new Supplier<Multiset>() { public Multiset get() { return
             TreeMultiset.create(); } }, EntryFactories.COMPARABLE));
+        analyze("ConcurrentHashMultiset_Worst", new MultisetPopulator_Worst(new Supplier<Multiset>() { public Multiset get() { return
+            ConcurrentHashMultiset.create(); } }));
+
+        System.out.println();
 
         analyze("HashMultiset_Best ", new MultisetPopulator_Best(new Supplier<Multiset>() { public Multiset get() { return
             HashMultiset.create(); } }));
+        analyze("LinkedHashMultiset_Best ", new MultisetPopulator_Best(new Supplier<Multiset>() { public Multiset get() { return
+            LinkedHashMultiset.create(); } }));
         analyze(new ImmutableSetMultimapPopulator_Best());
         analyze("TreeMultiset_Best ", new MultisetPopulator_Best(new Supplier<Multiset>() { public Multiset get() { return
             TreeMultiset.create(); } }, EntryFactories.COMPARABLE));
+        analyze("ConcurrentHashMultiset_Best", new MultisetPopulator_Best(new Supplier<Multiset>() { public Multiset get() { return
+            ConcurrentHashMultiset.create(); } }));
 
         caption("        Multimaps         ");
 
@@ -143,6 +155,8 @@ public class ElementCostOfDataStructures {
         analyze(new ImmutableMultimapPopulator_Worst());
         analyze(new ImmutableListMultimapPopulator_Worst());
 
+        System.out.println();
+
         analyze("HashMultimap_Best ", new MultimapPopulator_Best(new Supplier<Multimap>() { public Multimap get() { return
             HashMultimap.create(); } }));
         analyze("LinkedHashMultimap_Best ", new MultimapPopulator_Best(new Supplier<Multimap>() { public Multimap get() { return
@@ -151,7 +165,7 @@ public class ElementCostOfDataStructures {
             TreeMultimap.create(); } }, EntryFactories.COMPARABLE));
         analyze("ArrayListMultimap_Best ", new MultimapPopulator_Best(new Supplier<Multimap>() { public Multimap get() { return
             ArrayListMultimap.create(); } }));
-        analyze("LinkedListMultimap_Best", new MultimapPopulator_Worst(new Supplier<Multimap>() { public Multimap get() { return
+        analyze("LinkedListMultimap_Best", new MultimapPopulator_Best(new Supplier<Multimap>() { public Multimap get() { return
             LinkedListMultimap.create(); } }));
         analyze(new ImmutableMultimapPopulator_Best());
         analyze(new ImmutableListMultimapPopulator_Best());
