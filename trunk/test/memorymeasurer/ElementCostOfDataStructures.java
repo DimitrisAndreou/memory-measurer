@@ -20,6 +20,7 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSetMultimap;
 import com.google.common.collect.ImmutableSortedMap;
 import com.google.common.collect.ImmutableSortedSet;
+import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.MapMaker;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
@@ -130,6 +131,8 @@ public class ElementCostOfDataStructures {
 
         analyze("HashMultimap_Worst", new MultimapPopulator_Worst(new Supplier<Multimap>() { public Multimap get() { return
             HashMultimap.create(); } }));
+        analyze("LinkedHashMultimap_Worst", new MultimapPopulator_Worst(new Supplier<Multimap>() { public Multimap get() { return
+            LinkedHashMultimap.create(); } }));
         analyze("TreeMultimap_Worst", new MultimapPopulator_Worst(new Supplier<Multimap>() { public Multimap get() { return
             TreeMultimap.create(); } }, EntryFactories.COMPARABLE));
         analyze("ArrayListMultimap_Worst", new MultimapPopulator_Worst(new Supplier<Multimap>() { public Multimap get() { return
@@ -139,6 +142,8 @@ public class ElementCostOfDataStructures {
 
         analyze("HashMultimap_Best ", new MultimapPopulator_Best(new Supplier<Multimap>() { public Multimap get() { return
             HashMultimap.create(); } }));
+        analyze("LinkedHashMultimap_Best ", new MultimapPopulator_Best(new Supplier<Multimap>() { public Multimap get() { return
+            LinkedHashMultimap.create(); } }));
         analyze("TreeMultimap_Best ", new MultimapPopulator_Best(new Supplier<Multimap>() { public Multimap get() { return
             TreeMultimap.create(); } }, EntryFactories.COMPARABLE));
         analyze("ArrayListMultimap_Best ", new MultimapPopulator_Best(new Supplier<Multimap>() { public Multimap get() { return
@@ -188,7 +193,7 @@ public class ElementCostOfDataStructures {
 
     static void analyze(String caption, Populator<?> populator) {
         AvgEntryCost cost = averageEntryCost(populator, 16, 256 * 31);
-        System.out.printf("%40s -- Bytes = %6.2f, Objects = %5.2f Refs = %5.2f Primitives = %s%n",
+        System.out.printf("%40s :: Bytes = %6.2f, Objects = %5.2f Refs = %5.2f Primitives = %s%n",
             caption, cost.bytes, cost.objects, cost.refs, cost.primitives);
     }
 
