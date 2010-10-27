@@ -61,6 +61,7 @@ Ever wondered what's the cost of adding an entry to a HashMap? Or a new element 
                 LinkedListMultimap_Worst :: Bytes = 297.45, Objects =  5.00 Refs = 23.18 Primitives = {int=4.0}
                  ImmutableMultimap_Worst :: Bytes =  96.45, Objects =  2.00 Refs =  8.06 Primitives = {}
              ImmutableListMultimap_Worst :: Bytes =  96.45, Objects =  2.00 Refs =  8.06 Primitives = {}
+
                       HashMultimap_Best  :: Bytes =  64.48, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
                 LinkedHashMultimap_Best  :: Bytes = 192.97, Objects =  3.00 Refs = 16.12 Primitives = {int=2.0}
                       TreeMultimap_Best  :: Bytes =  64.00, Objects =  1.00 Refs =  5.00 Primitives = {boolean=1.0}
