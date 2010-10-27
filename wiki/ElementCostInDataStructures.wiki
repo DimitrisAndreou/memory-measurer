@@ -41,20 +41,18 @@ Ever wondered what's the cost of adding an entry to a HashMap? Or a new element 
          MapMaker_Expires_SoftKeysValues :: Bytes = 192.49, Objects =  2.00 Refs = 16.06 Primitives = {int=1.0, long=3.0}
          MapMaker_ExpiresEvicts_SoftKeys :: Bytes = 168.49, Objects =  2.00 Refs = 14.06 Primitives = {int=1.0, long=2.0}
        MapMaker_ExpiresEvicts_SoftValues :: Bytes = 176.49, Objects =  2.00 Refs = 15.06 Primitives = {int=1.0, long=2.0}
-   MapMaker_ExpiresEvicts_SoftKeysValues :: Bytes = 208.50, Objects =  2.00 Refs = 18.06 Primitives = {int=1.0, long=3.0}
+   MapMaker_ExpiresEvicts_SoftKeysValues :: Bytes = 208.49, Objects =  2.00 Refs = 18.06 Primitives = {int=1.0, long=3.0}
 
 ==========================================         Multisets          ==========================================
 
                       HashMultiset_Worst :: Bytes =  88.48, Objects =  2.00 Refs =  5.06 Primitives = {int=2.0}
                 LinkedHashMultiset_Worst :: Bytes = 104.48, Objects =  2.00 Refs =  7.06 Primitives = {int=2.0}
-              ImmutableSetMultimap_Worst :: Bytes = 104.45, Objects =  2.00 Refs =  9.06 Primitives = {}
                       TreeMultiset_Worst :: Bytes =  88.00, Objects =  2.00 Refs =  5.00 Primitives = {int=1.0, boolean=1.0}
-            ConcurrentHashMultiset_Worst :: Bytes =  64.49, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
+            ConcurrentHashMultiset_Worst :: Bytes =  64.50, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
 
                       HashMultiset_Best  :: Bytes =   0.00, Objects =  0.00 Refs =  0.00 Primitives = {}
                 LinkedHashMultiset_Best  :: Bytes =   0.00, Objects =  0.00 Refs =  0.00 Primitives = {}
-              ImmutableSetMultimap_Best  :: Bytes =  24.45, Objects =  0.00 Refs =  3.06 Primitives = {}
-                      TreeMultiset_Best  :: Bytes =  88.00, Objects =  2.00 Refs =  5.00 Primitives = {int=1.0, boolean=1.0}
+                      TreeMultiset_Best  :: Bytes =   0.00, Objects =  0.00 Refs =  0.00 Primitives = {}
             ConcurrentHashMultiset_Best  :: Bytes =   0.00, Objects =  0.00 Refs =  0.00 Primitives = {}
 
 ==========================================         Multimaps          ==========================================
@@ -66,6 +64,7 @@ Ever wondered what's the cost of adding an entry to a HashMap? Or a new element 
                 LinkedListMultimap_Worst :: Bytes = 297.45, Objects =  5.00 Refs = 23.18 Primitives = {int=4.0}
                  ImmutableMultimap_Worst :: Bytes =  96.45, Objects =  2.00 Refs =  8.06 Primitives = {}
              ImmutableListMultimap_Worst :: Bytes =  96.45, Objects =  2.00 Refs =  8.06 Primitives = {}
+              ImmutableSetMultimap_Worst :: Bytes = 104.45, Objects =  2.00 Refs =  9.06 Primitives = {}
 
                       HashMultimap_Best  :: Bytes =  64.48, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
                 LinkedHashMultimap_Best  :: Bytes = 192.97, Objects =  3.00 Refs = 16.12 Primitives = {int=2.0}
@@ -74,6 +73,7 @@ Ever wondered what's the cost of adding an entry to a HashMap? Or a new element 
                 LinkedListMultimap_Best  :: Bytes =  64.00, Objects =  1.00 Refs =  6.00 Primitives = {}
                  ImmutableMultimap_Best  :: Bytes =   8.00, Objects =  0.00 Refs =  1.00 Primitives = {}
              ImmutableListMultimap_Best  :: Bytes =   8.00, Objects =  0.00 Refs =  1.00 Primitives = {}
+              ImmutableSetMultimap_Best  :: Bytes =  24.45, Objects =  0.00 Refs =  3.06 Primitives = {}
 
 ==========================================           Tables           ==========================================
 
@@ -93,7 +93,7 @@ Ever wondered what's the cost of adding an entry to a HashMap? Or a new element 
                            LinkedHashSet :: Bytes =  80.48, Objects =  1.00 Refs =  7.06 Primitives = {int=1.0}
                            PriorityQueue :: Bytes =   8.79, Objects =  0.00 Refs =  1.10 Primitives = {}
                    PriorityBlockingQueue :: Bytes =   8.79, Objects =  0.00 Refs =  1.10 Primitives = {}
-                   ConcurrentSkipListSet :: Bytes =  60.02, Objects =  1.50 Refs =  4.50 Primitives = {int=0.0011340725806451614}
+                   ConcurrentSkipListSet :: Bytes =  60.37, Objects =  1.51 Refs =  4.53 Primitives = {int=0.0011340725806451614}
                     CopyOnWriteArrayList :: Bytes =   8.00, Objects =  0.00 Refs =  1.00 Primitives = {}
                      CopyOnWriteArraySet :: Bytes =   8.00, Objects =  0.00 Refs =  1.00 Primitives = {}
                               DelayQueue :: Bytes =   8.79, Objects =  0.00 Refs =  1.10 Primitives = {}
