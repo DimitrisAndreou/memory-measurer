@@ -9,6 +9,49 @@ Ever wondered what's the cost of adding an entry to a HashMap? Or a new element 
 = Cost per element in various well-known Java/Guava data structures =
 (*Note*: this test ran on a 64bit machine, so byte measurements should be roughly half on a 32bit.)
 {{{
+==========================================   Basic Lists, Sets, Maps  ==========================================
+
+                               ArrayList :: Bytes =  11.70, Objects =  0.00 Refs =  1.46 Primitives = {}
+                           ImmutableList :: Bytes =   8.00, Objects =  0.00 Refs =  1.00 Primitives = {}
+                                 HashSet :: Bytes =  64.48, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
+                            ImmutableSet :: Bytes =  24.45, Objects =  0.00 Refs =  3.06 Primitives = {}
+                                 TreeSet :: Bytes =  64.00, Objects =  1.00 Refs =  5.00 Primitives = {boolean=1.0}
+                      ImmutableSortedSet :: Bytes =   8.00, Objects =  0.00 Refs =  1.00 Primitives = {}
+                                 HashMap :: Bytes =  64.48, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
+                            ImmutableMap :: Bytes =  64.45, Objects =  1.00 Refs =  6.06 Primitives = {}
+                           LinkedHashMap :: Bytes =  80.48, Objects =  1.00 Refs =  7.06 Primitives = {int=1.0}
+                                 TreeMap :: Bytes =  64.00, Objects =  1.00 Refs =  5.00 Primitives = {boolean=1.0}
+                      ImmutableSortedMap :: Bytes =  40.00, Objects =  1.00 Refs =  3.00 Primitives = {}
+
+========================================== ConcurrentHashMap/MapMaker ==========================================
+
+                       ConcurrentHashMap :: Bytes =  64.49, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
+                                MapMaker :: Bytes =  64.49, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
+                        MapMaker_Expires :: Bytes = 120.49, Objects =  2.00 Refs =  9.06 Primitives = {int=1.0, long=1.0}
+                         MapMaker_Evicts :: Bytes = 112.49, Objects =  2.00 Refs =  9.06 Primitives = {int=1.0}
+                  MapMaker_ExpiresEvicts :: Bytes = 136.49, Objects =  2.00 Refs = 11.06 Primitives = {int=1.0, long=1.0}
+                       MapMaker_SoftKeys :: Bytes = 128.50, Objects =  2.00 Refs = 10.06 Primitives = {int=1.0, long=1.0}
+                     MapMaker_SoftValues :: Bytes = 136.49, Objects =  2.00 Refs = 11.06 Primitives = {int=1.0, long=1.0}
+                 MapMaker_SoftKeysValues :: Bytes = 168.49, Objects =  2.00 Refs = 14.06 Primitives = {int=1.0, long=2.0}
+                MapMaker_Evicts_SoftKeys :: Bytes = 144.49, Objects =  2.00 Refs = 12.06 Primitives = {int=1.0, long=1.0}
+              MapMaker_Evicts_SoftValues :: Bytes = 152.49, Objects =  2.00 Refs = 13.06 Primitives = {int=1.0, long=1.0}
+          MapMaker_Evicts_SoftKeysValues :: Bytes = 184.49, Objects =  2.00 Refs = 16.06 Primitives = {int=1.0, long=2.0}
+               MapMaker_Expires_SoftKeys :: Bytes = 152.49, Objects =  2.00 Refs = 12.06 Primitives = {int=1.0, long=2.0}
+             MapMaker_Expires_SoftValues :: Bytes = 160.48, Objects =  2.00 Refs = 13.06 Primitives = {int=1.0, long=2.0}
+         MapMaker_Expires_SoftKeysValues :: Bytes = 192.49, Objects =  2.00 Refs = 16.06 Primitives = {int=1.0, long=3.0}
+         MapMaker_ExpiresEvicts_SoftKeys :: Bytes = 168.49, Objects =  2.00 Refs = 14.06 Primitives = {int=1.0, long=2.0}
+       MapMaker_ExpiresEvicts_SoftValues :: Bytes = 176.49, Objects =  2.00 Refs = 15.06 Primitives = {int=1.0, long=2.0}
+   MapMaker_ExpiresEvicts_SoftKeysValues :: Bytes = 208.50, Objects =  2.00 Refs = 18.06 Primitives = {int=1.0, long=3.0}
+
+==========================================         Multisets          ==========================================
+
+                      HashMultiset_Worst :: Bytes =  88.48, Objects =  2.00 Refs =  5.06 Primitives = {int=2.0}
+              ImmutableSetMultimap_Worst :: Bytes = 104.45, Objects =  2.00 Refs =  9.06 Primitives = {}
+                      TreeMultiset_Worst :: Bytes =  88.00, Objects =  2.00 Refs =  5.00 Primitives = {int=1.0, boolean=1.0}
+                      HashMultiset_Best  :: Bytes =   0.00, Objects =  0.00 Refs =  0.00 Primitives = {}
+              ImmutableSetMultimap_Best  :: Bytes =  24.45, Objects =  0.00 Refs =  3.06 Primitives = {}
+                      TreeMultiset_Best  :: Bytes =  88.00, Objects =  2.00 Refs =  5.00 Primitives = {int=1.0, boolean=1.0}
+
 ==========================================         Multimaps          ==========================================
 
                       HashMultimap_Worst :: Bytes = 352.48, Objects =  5.00 Refs = 29.06 Primitives = {int=5.0, float=1.0}
@@ -47,8 +90,7 @@ Ever wondered what's the cost of adding an entry to a HashMap? Or a new element 
                      CopyOnWriteArraySet :: Bytes =   8.00, Objects =  0.00 Refs =  1.00 Primitives = {}
                               DelayQueue :: Bytes =   8.79, Objects =  0.00 Refs =  1.10 Primitives = {}
                      LinkedBlockingQueue :: Bytes =  32.00, Objects =  1.00 Refs =  2.00 Primitives = {}
-                     LinkedBlockingDeque :: Bytes =  40.00, Objects =  1.00 Refs =  3.00 Primitives = {}
-}}}
+                     LinkedBlockingDeque :: Bytes =  40.00, Objects =  1.00 Refs =  3.00 Primitives = {}}}}
 
 Some clarifications:
 {{{HashMultimap_Worst}}} means that every key only maps to a single value. The huge memory cost you see is because by default a big hashtable is allocated per key - [http://guava-libraries.googlecode.com/svn/trunk/javadoc/com/google/common/collect/HashMultimap.html#create(int,%20int) you can fine-tune this size though]. Conversely, the "best" case is where a _single_ key maps to all values - there, the per-entry cost degenerates to the per-entry cost of a regular HashMap, for obvious reasons. The per-entry cost of a realistic HashMultimap will be somewhere (depending on the distribution of values in keys) between these two limits. Similarly, it should be obvious why {{{HashMultiset_Best}}} reports _zero_ cost in everything. 
