@@ -15,6 +15,7 @@ Ever wondered what's the cost of adding an entry to a HashMap? Or a new element 
                            ImmutableList :: Bytes =   8.00, Objects =  0.00 Refs =  1.00 Primitives = {}
                                  HashSet :: Bytes =  64.48, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
                             ImmutableSet :: Bytes =  24.45, Objects =  0.00 Refs =  3.06 Primitives = {}
+                           LinkedHashSet :: Bytes =  80.48, Objects =  1.00 Refs =  7.06 Primitives = {int=1.0}
                                  TreeSet :: Bytes =  64.00, Objects =  1.00 Refs =  5.00 Primitives = {boolean=1.0}
                       ImmutableSortedSet :: Bytes =   8.00, Objects =  0.00 Refs =  1.00 Primitives = {}
                                  HashMap :: Bytes =  64.48, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
@@ -29,7 +30,7 @@ Ever wondered what's the cost of adding an entry to a HashMap? Or a new element 
                                 MapMaker :: Bytes =  64.49, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
                       MapMaker_Computing :: Bytes =  96.49, Objects =  2.00 Refs =  7.06 Primitives = {int=1.0}
                         MapMaker_Expires :: Bytes = 120.49, Objects =  2.00 Refs =  9.06 Primitives = {int=1.0, long=1.0}
-                         MapMaker_Evicts :: Bytes = 112.49, Objects =  2.00 Refs =  9.06 Primitives = {int=1.0}
+                         MapMaker_Evicts :: Bytes = 112.48, Objects =  2.00 Refs =  9.06 Primitives = {int=1.0}
                  MapMaker_Expires_Evicts :: Bytes = 136.49, Objects =  2.00 Refs = 11.06 Primitives = {int=1.0, long=1.0}
                        MapMaker_SoftKeys :: Bytes = 128.49, Objects =  2.00 Refs = 10.06 Primitives = {int=1.0, long=1.0}
                      MapMaker_SoftValues :: Bytes = 136.49, Objects =  2.00 Refs = 11.06 Primitives = {int=1.0, long=1.0}
@@ -91,10 +92,9 @@ Ever wondered what's the cost of adding an entry to a HashMap? Or a new element 
                              WeakHashMap :: Bytes =  88.48, Objects =  1.00 Refs =  8.06 Primitives = {int=1.0}
                               LinkedList :: Bytes =  40.00, Objects =  1.00 Refs =  3.00 Primitives = {}
                               ArrayDeque :: Bytes =   8.23, Objects =  0.00 Refs =  1.03 Primitives = {}
-                           LinkedHashSet :: Bytes =  80.48, Objects =  1.00 Refs =  7.06 Primitives = {int=1.0}
                            PriorityQueue :: Bytes =   8.79, Objects =  0.00 Refs =  1.10 Primitives = {}
                    PriorityBlockingQueue :: Bytes =   8.79, Objects =  0.00 Refs =  1.10 Primitives = {}
-                   ConcurrentSkipListSet :: Bytes =  59.90, Objects =  1.50 Refs =  4.49 Primitives = {int=8.820564516129032E-4}
+                   ConcurrentSkipListSet :: Bytes =  59.56, Objects =  1.49 Refs =  4.47 Primitives = {int=0.0010080645161290322}
                     CopyOnWriteArrayList :: Bytes =   8.00, Objects =  0.00 Refs =  1.00 Primitives = {}
                      CopyOnWriteArraySet :: Bytes =   8.00, Objects =  0.00 Refs =  1.00 Primitives = {}
                               DelayQueue :: Bytes =   8.79, Objects =  0.00 Refs =  1.10 Primitives = {}
