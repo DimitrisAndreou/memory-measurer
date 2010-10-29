@@ -1,5 +1,6 @@
 package memorymeasurer;
 
+import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
@@ -83,13 +84,13 @@ public class ElementCostOfDataStructures {
         caption("ConcurrentHashMap/MapMaker");
 
         analyze(new MapPopulator(defaultSupplierFor(ConcurrentHashMap.class)));
-        analyze("MapMaker", new MapPopulator(new Supplier<Map>() { public Map get() { return
-            new MapMaker().makeMap(); } }));
+        analyzeMapMaker("MapMaker", new Supplier<MapMaker>() { public MapMaker get() { return
+            new MapMaker(); } });
         analyze("MapMaker_Expires", new MapPopulator(new Supplier<Map>() { public Map get() { return
             new MapMaker().expiration(5, TimeUnit.DAYS).makeMap(); } }));
         analyze("MapMaker_Evicts", new MapPopulator(new Supplier<Map>() { public Map get() { return
             new MapMaker().maximumSize(1000000).makeMap(); } }));
-        analyze("MapMaker_ExpiresEvicts", new MapPopulator(new Supplier<Map>() { public Map get() { return
+        analyze("MapMaker_Expires_Evicts", new MapPopulator(new Supplier<Map>() { public Map get() { return
             new MapMaker().maximumSize(1000000).expiration(3, TimeUnit.DAYS).makeMap(); } }));
         analyze("MapMaker_SoftKeys", new MapPopulator(new Supplier<Map>() { public Map get() { return
             new MapMaker().softKeys().makeMap(); } }));
@@ -109,11 +110,11 @@ public class ElementCostOfDataStructures {
             new MapMaker().expiration(3, TimeUnit.DAYS).softValues().makeMap(); } }));
         analyze("MapMaker_Expires_SoftKeysValues", new MapPopulator(new Supplier<Map>() { public Map get() { return
             new MapMaker().expiration(3, TimeUnit.DAYS).softKeys().softValues().makeMap(); } }));
-        analyze("MapMaker_ExpiresEvicts_SoftKeys", new MapPopulator(new Supplier<Map>() { public Map get() { return
+        analyze("MapMaker_Expires_Evicts_SoftKeys", new MapPopulator(new Supplier<Map>() { public Map get() { return
             new MapMaker().maximumSize(1000000).expiration(3, TimeUnit.DAYS).softKeys().makeMap(); } }));
-        analyze("MapMaker_ExpiresEvicts_SoftValues", new MapPopulator(new Supplier<Map>() { public Map get() { return
+        analyze("MapMaker_Expires_Evicts_SoftValues", new MapPopulator(new Supplier<Map>() { public Map get() { return
             new MapMaker().maximumSize(1000000).expiration(3, TimeUnit.DAYS).softValues().makeMap(); } }));
-        analyze("MapMaker_ExpiresEvicts_SoftKeysValues", new MapPopulator(new Supplier<Map>() { public Map get() { return
+        analyze("MapMaker_Expires_Evicts_SoftKeysValues", new MapPopulator(new Supplier<Map>() { public Map get() { return
             new MapMaker().maximumSize(1000000).expiration(3, TimeUnit.DAYS).softKeys().softValues().makeMap(); } }));
 
         caption("        Multisets         ");
@@ -204,6 +205,37 @@ public class ElementCostOfDataStructures {
         System.out.println("========================================== " + caption
                         + " ==========================================");
         System.out.println();
+    }
+
+    private static void analyzeMapMaker(String caption, Supplier<MapMaker> supplier) {
+        analyze(caption, new MapPopulator(new MapSupplier(supplier)));
+        analyze(caption + "_Computing", new MapPopulator(new ComputingMapSupplier(supplier)));
+    }
+
+    private static class MapSupplier implements Supplier<Map> {
+        private final Supplier<MapMaker> mapMakerSupplier;
+        MapSupplier(Supplier<MapMaker> mapMakerSupplier) {
+            this.mapMakerSupplier = mapMakerSupplier;
+        }
+
+        public Map get() {
+            return mapMakerSupplier.get().makeMap();
+        }
+    }
+
+    private static class ComputingMapSupplier implements Supplier<Map> {
+        private final Supplier<MapMaker> mapMakerSupplier;
+        ComputingMapSupplier(Supplier<MapMaker> mapMakerSupplier) {
+            this.mapMakerSupplier = mapMakerSupplier;
+        }
+
+        public Map get() {
+            return mapMakerSupplier.get().makeComputingMap(new Function() {
+                public Object apply(Object o) {
+                    return o;
+                }
+            });
+        }
     }
 
     static void analyze(Populator<?> populator) {
