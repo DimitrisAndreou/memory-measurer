@@ -6,7 +6,7 @@
 
 Ever wondered what's the cost of adding an entry to a HashMap? Or a new element in a TreeSet? No more head-scratching, you can consult the following list and know very precisely the cost per elements in your data structures (using their default settings when not specified).
 
-= Cost _per element_ in various well-known Java/Guava data structures =
+= Cost _per element/entry_ in various well-known Java/Guava data structures =
 (*Note*: this test ran on a 64bit machine, so byte measurements should be roughly half on a 32bit.)
 {{{
 ==========================================   Basic Lists, Sets, Maps  ==========================================
