@@ -27,10 +27,11 @@ Ever wondered what's the cost of adding an entry to a HashMap? Or a new element 
 
                        ConcurrentHashMap :: Bytes =  64.49, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
                                 MapMaker :: Bytes =  64.49, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
+                      MapMaker_Computing :: Bytes =  96.49, Objects =  2.00 Refs =  7.06 Primitives = {int=1.0}
                         MapMaker_Expires :: Bytes = 120.49, Objects =  2.00 Refs =  9.06 Primitives = {int=1.0, long=1.0}
                          MapMaker_Evicts :: Bytes = 112.49, Objects =  2.00 Refs =  9.06 Primitives = {int=1.0}
-                  MapMaker_ExpiresEvicts :: Bytes = 136.49, Objects =  2.00 Refs = 11.06 Primitives = {int=1.0, long=1.0}
-                       MapMaker_SoftKeys :: Bytes = 128.50, Objects =  2.00 Refs = 10.06 Primitives = {int=1.0, long=1.0}
+                 MapMaker_Expires_Evicts :: Bytes = 136.49, Objects =  2.00 Refs = 11.06 Primitives = {int=1.0, long=1.0}
+                       MapMaker_SoftKeys :: Bytes = 128.49, Objects =  2.00 Refs = 10.06 Primitives = {int=1.0, long=1.0}
                      MapMaker_SoftValues :: Bytes = 136.49, Objects =  2.00 Refs = 11.06 Primitives = {int=1.0, long=1.0}
                  MapMaker_SoftKeysValues :: Bytes = 168.49, Objects =  2.00 Refs = 14.06 Primitives = {int=1.0, long=2.0}
                 MapMaker_Evicts_SoftKeys :: Bytes = 144.49, Objects =  2.00 Refs = 12.06 Primitives = {int=1.0, long=1.0}
@@ -39,16 +40,16 @@ Ever wondered what's the cost of adding an entry to a HashMap? Or a new element 
                MapMaker_Expires_SoftKeys :: Bytes = 152.49, Objects =  2.00 Refs = 12.06 Primitives = {int=1.0, long=2.0}
              MapMaker_Expires_SoftValues :: Bytes = 160.49, Objects =  2.00 Refs = 13.06 Primitives = {int=1.0, long=2.0}
          MapMaker_Expires_SoftKeysValues :: Bytes = 192.49, Objects =  2.00 Refs = 16.06 Primitives = {int=1.0, long=3.0}
-         MapMaker_ExpiresEvicts_SoftKeys :: Bytes = 168.49, Objects =  2.00 Refs = 14.06 Primitives = {int=1.0, long=2.0}
-       MapMaker_ExpiresEvicts_SoftValues :: Bytes = 176.49, Objects =  2.00 Refs = 15.06 Primitives = {int=1.0, long=2.0}
-   MapMaker_ExpiresEvicts_SoftKeysValues :: Bytes = 208.49, Objects =  2.00 Refs = 18.06 Primitives = {int=1.0, long=3.0}
+        MapMaker_Expires_Evicts_SoftKeys :: Bytes = 168.49, Objects =  2.00 Refs = 14.06 Primitives = {int=1.0, long=2.0}
+      MapMaker_Expires_Evicts_SoftValues :: Bytes = 176.49, Objects =  2.00 Refs = 15.06 Primitives = {int=1.0, long=2.0}
+  MapMaker_Expires_Evicts_SoftKeysValues :: Bytes = 208.49, Objects =  2.00 Refs = 18.06 Primitives = {int=1.0, long=3.0}
 
 ==========================================         Multisets          ==========================================
 
                       HashMultiset_Worst :: Bytes =  88.48, Objects =  2.00 Refs =  5.06 Primitives = {int=2.0}
                 LinkedHashMultiset_Worst :: Bytes = 104.48, Objects =  2.00 Refs =  7.06 Primitives = {int=2.0}
                       TreeMultiset_Worst :: Bytes =  88.00, Objects =  2.00 Refs =  5.00 Primitives = {int=1.0, boolean=1.0}
-            ConcurrentHashMultiset_Worst :: Bytes =  64.50, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
+            ConcurrentHashMultiset_Worst :: Bytes =  64.49, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
 
                       HashMultiset_Best  :: Bytes =   0.00, Objects =  0.00 Refs =  0.00 Primitives = {}
                 LinkedHashMultiset_Best  :: Bytes =   0.00, Objects =  0.00 Refs =  0.00 Primitives = {}
@@ -93,7 +94,7 @@ Ever wondered what's the cost of adding an entry to a HashMap? Or a new element 
                            LinkedHashSet :: Bytes =  80.48, Objects =  1.00 Refs =  7.06 Primitives = {int=1.0}
                            PriorityQueue :: Bytes =   8.79, Objects =  0.00 Refs =  1.10 Primitives = {}
                    PriorityBlockingQueue :: Bytes =   8.79, Objects =  0.00 Refs =  1.10 Primitives = {}
-                   ConcurrentSkipListSet :: Bytes =  60.37, Objects =  1.51 Refs =  4.53 Primitives = {int=0.0011340725806451614}
+                   ConcurrentSkipListSet :: Bytes =  59.90, Objects =  1.50 Refs =  4.49 Primitives = {int=8.820564516129032E-4}
                     CopyOnWriteArrayList :: Bytes =   8.00, Objects =  0.00 Refs =  1.00 Primitives = {}
                      CopyOnWriteArraySet :: Bytes =   8.00, Objects =  0.00 Refs =  1.00 Primitives = {}
                               DelayQueue :: Bytes =   8.79, Objects =  0.00 Refs =  1.10 Primitives = {}
@@ -101,9 +102,13 @@ Ever wondered what's the cost of adding an entry to a HashMap? Or a new element 
                      LinkedBlockingDeque :: Bytes =  40.00, Objects =  1.00 Refs =  3.00 Primitives = {}
 }}}
 
-Some clarifications:
-{{{HashMultimap_Worst}}} means that every key only maps to a single value. The huge memory cost you see is because by default a big hashtable is allocated per key - [http://guava-libraries.googlecode.com/svn/trunk/javadoc/com/google/common/collect/HashMultimap.html#create(int,%20int) you can fine-tune this size though]. Conversely, the "best" case is where a _single_ key maps to all values - there, the per-entry cost degenerates to the per-entry cost of a regular HashMap, for obvious reasons. The per-entry cost of a realistic HashMultimap will be somewhere (depending on the distribution of values in keys) between these two limits. Similarly, it should be obvious why {{{HashMultiset_Best}}} reports _zero_ cost in everything. 
+Some clarifications and observations:
+  * {{{HashMultimap_Worst}}} means that every key only maps to a single value. The huge memory cost you see is because by default a big hashtable is allocated per key - [http://guava-libraries.googlecode.com/svn/trunk/javadoc/com/google/common/collect/HashMultimap.html#create(int,%20int) you can fine-tune this size though]. Conversely, the "best" case is where a _single_ key maps to all values - there, the per-entry cost degenerates to the per-entry cost of a regular HashMap, for obvious reasons. The per-entry cost of a realistic HashMultimap will be somewhere (depending on the distribution of values in keys) between these two limits. Similarly, it should be obvious why {{{HashMultiset_Best}}} reports _zero_ cost in everything. 
 
-Another curious observation: ArrayDeque does not resize at exactly the same thresholds as ArrayList does, so I had some tuning to do. The previous results were unlucky enough to show that an ArrayDeque had around _double_ the cost of an ArrayList, because the former resized but the latter did not, for the same amount of entries.
+  * ArrayDeque does not resize at exactly the same thresholds as ArrayList does, so I had some tuning to do. The previous results were unlucky enough to show that an ArrayDeque had around _double_ the cost of an ArrayList, because the former resized but the latter did not, for the same amount of entries.
 
-Another observation: Notice how HashBasedTable is slightly more compact than HashMultimap. (One object and one reference less for HashBasedTable). The difference is caused by HashMultimap using HashSet for the values of a key, while HashBasedTable uses HashMap for the columns of a row. But HashSet is just a wrapper over HashMap, adding the mentioned overhead.
+  * Notice how HashBasedTable is slightly more compact than HashMultimap. (One object and one reference less for HashBasedTable). The difference is caused by HashMultimap using HashSet for the values of a key, while HashBasedTable uses HashMap for the columns of a row. But HashSet is just a wrapper over HashMap, adding the mentioned overhead.
+
+  * It's a bit silly that {{{ConcurrentHashMultiset}}} is slightly cheaper than {{{HashMultiset}}}. The difference is that the former uses {{{Integer}}} as values (of which a well known range is cached, so there's the gain), while the latter uses {{{AtomicInteger}}}, so that is mutable. Also a bit ironic that the sequential version uses {{{AtomicInteger}}} while the concurrent does not :). If {{{Map}}} had a method {{{getEntry(key)}}} (which returned {{{Entry}}}), that AtomicInteger wouldn't be needed, but such is life.
+
+  * In MapMaker, I only show the "computing" ({{{makeComputingMap()}}} instead of {{{makeMap()}}}) version of the plain MapMaker, because only in that case there is a difference between the computing and the plain version.
