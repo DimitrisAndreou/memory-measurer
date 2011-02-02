@@ -2,6 +2,8 @@
 #labels Featured
 [http://goo.gl/L3wJ ElementCostOfDataStructures.java].
 
+Guava's version is updated to r8 - compared to the previous version, we see reductions in entry memory cost for ImmutableMap (was 64.45 bytes) and ImmutableBiMap (was 128.90 bytes). Yey for ~25% memory reduction for ImmutableMaps!
+
 = Introduction =
 
 Ever wondered what's the cost of adding an entry to a HashMap? Or a new element in a TreeSet? No more head-scratching, you can consult the following list and know very precisely the cost per elements in your data structures (using their default settings when not specified).
@@ -15,11 +17,10 @@ Ever wondered what's the cost of adding an entry to a HashMap? Or a new element 
                            ImmutableList :: Bytes =   8.00, Objects =  0.00 Refs =  1.00 Primitives = {}
                                  HashSet :: Bytes =  64.48, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
                             ImmutableSet :: Bytes =  24.45, Objects =  0.00 Refs =  3.06 Primitives = {}
-                           LinkedHashSet :: Bytes =  80.48, Objects =  1.00 Refs =  7.06 Primitives = {int=1.0}
                                  TreeSet :: Bytes =  64.00, Objects =  1.00 Refs =  5.00 Primitives = {boolean=1.0}
                       ImmutableSortedSet :: Bytes =   8.00, Objects =  0.00 Refs =  1.00 Primitives = {}
                                  HashMap :: Bytes =  64.48, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
-                            ImmutableMap :: Bytes =  64.45, Objects =  1.00 Refs =  6.06 Primitives = {}
+                            ImmutableMap :: Bytes =  51.12, Objects =  1.00 Refs =  4.39 Primitives = {}
                            LinkedHashMap :: Bytes =  80.48, Objects =  1.00 Refs =  7.06 Primitives = {int=1.0}
                                  TreeMap :: Bytes =  64.00, Objects =  1.00 Refs =  5.00 Primitives = {boolean=1.0}
                       ImmutableSortedMap :: Bytes =  40.00, Objects =  1.00 Refs =  3.00 Primitives = {}
@@ -29,27 +30,27 @@ Ever wondered what's the cost of adding an entry to a HashMap? Or a new element 
                        ConcurrentHashMap :: Bytes =  64.49, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
                                 MapMaker :: Bytes =  64.49, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
                       MapMaker_Computing :: Bytes =  96.49, Objects =  2.00 Refs =  7.06 Primitives = {int=1.0}
-                        MapMaker_Expires :: Bytes = 120.49, Objects =  2.00 Refs =  9.06 Primitives = {int=1.0, long=1.0}
-                         MapMaker_Evicts :: Bytes = 112.48, Objects =  2.00 Refs =  9.06 Primitives = {int=1.0}
-                 MapMaker_Expires_Evicts :: Bytes = 136.49, Objects =  2.00 Refs = 11.06 Primitives = {int=1.0, long=1.0}
-                       MapMaker_SoftKeys :: Bytes = 128.49, Objects =  2.00 Refs = 10.06 Primitives = {int=1.0, long=1.0}
-                     MapMaker_SoftValues :: Bytes = 136.49, Objects =  2.00 Refs = 11.06 Primitives = {int=1.0, long=1.0}
-                 MapMaker_SoftKeysValues :: Bytes = 168.49, Objects =  2.00 Refs = 14.06 Primitives = {int=1.0, long=2.0}
-                MapMaker_Evicts_SoftKeys :: Bytes = 144.49, Objects =  2.00 Refs = 12.06 Primitives = {int=1.0, long=1.0}
-              MapMaker_Evicts_SoftValues :: Bytes = 152.49, Objects =  2.00 Refs = 13.06 Primitives = {int=1.0, long=1.0}
-          MapMaker_Evicts_SoftKeysValues :: Bytes = 184.49, Objects =  2.00 Refs = 16.06 Primitives = {int=1.0, long=2.0}
-               MapMaker_Expires_SoftKeys :: Bytes = 152.49, Objects =  2.00 Refs = 12.06 Primitives = {int=1.0, long=2.0}
-             MapMaker_Expires_SoftValues :: Bytes = 160.49, Objects =  2.00 Refs = 13.06 Primitives = {int=1.0, long=2.0}
-         MapMaker_Expires_SoftKeysValues :: Bytes = 192.49, Objects =  2.00 Refs = 16.06 Primitives = {int=1.0, long=3.0}
-        MapMaker_Expires_Evicts_SoftKeys :: Bytes = 168.49, Objects =  2.00 Refs = 14.06 Primitives = {int=1.0, long=2.0}
-      MapMaker_Expires_Evicts_SoftValues :: Bytes = 176.49, Objects =  2.00 Refs = 15.06 Primitives = {int=1.0, long=2.0}
-  MapMaker_Expires_Evicts_SoftKeysValues :: Bytes = 208.49, Objects =  2.00 Refs = 18.06 Primitives = {int=1.0, long=3.0}
+                        MapMaker_Expires :: Bytes = 120.49, Objects =  2.00 Refs =  9.06 Primitives = {long=1.0, int=1.0}
+                         MapMaker_Evicts :: Bytes = 112.50, Objects =  2.00 Refs =  9.06 Primitives = {int=1.0}
+                 MapMaker_Expires_Evicts :: Bytes = 136.50, Objects =  2.00 Refs = 11.06 Primitives = {long=1.0, int=1.0}
+                       MapMaker_SoftKeys :: Bytes = 128.49, Objects =  2.00 Refs = 10.06 Primitives = {long=1.0, int=1.0}
+                     MapMaker_SoftValues :: Bytes = 136.49, Objects =  2.00 Refs = 11.06 Primitives = {long=1.0, int=1.0}
+                 MapMaker_SoftKeysValues :: Bytes = 168.49, Objects =  2.00 Refs = 14.06 Primitives = {long=2.0, int=1.0}
+                MapMaker_Evicts_SoftKeys :: Bytes = 144.49, Objects =  2.00 Refs = 12.06 Primitives = {long=1.0, int=1.0}
+              MapMaker_Evicts_SoftValues :: Bytes = 152.49, Objects =  2.00 Refs = 13.06 Primitives = {long=1.0, int=1.0}
+          MapMaker_Evicts_SoftKeysValues :: Bytes = 184.49, Objects =  2.00 Refs = 16.06 Primitives = {long=2.0, int=1.0}
+               MapMaker_Expires_SoftKeys :: Bytes = 152.49, Objects =  2.00 Refs = 12.06 Primitives = {long=2.0, int=1.0}
+             MapMaker_Expires_SoftValues :: Bytes = 160.49, Objects =  2.00 Refs = 13.06 Primitives = {long=2.0, int=1.0}
+         MapMaker_Expires_SoftKeysValues :: Bytes = 192.49, Objects =  2.00 Refs = 16.06 Primitives = {long=3.0, int=1.0}
+        MapMaker_Expires_Evicts_SoftKeys :: Bytes = 168.49, Objects =  2.00 Refs = 14.06 Primitives = {long=2.0, int=1.0}
+      MapMaker_Expires_Evicts_SoftValues :: Bytes = 176.49, Objects =  2.00 Refs = 15.06 Primitives = {long=2.0, int=1.0}
+  MapMaker_Expires_Evicts_SoftKeysValues :: Bytes = 208.49, Objects =  2.00 Refs = 18.06 Primitives = {long=3.0, int=1.0}
 
 ==========================================         Multisets          ==========================================
 
                       HashMultiset_Worst :: Bytes =  88.48, Objects =  2.00 Refs =  5.06 Primitives = {int=2.0}
                 LinkedHashMultiset_Worst :: Bytes = 104.48, Objects =  2.00 Refs =  7.06 Primitives = {int=2.0}
-                      TreeMultiset_Worst :: Bytes =  88.00, Objects =  2.00 Refs =  5.00 Primitives = {int=1.0, boolean=1.0}
+                      TreeMultiset_Worst :: Bytes =  88.00, Objects =  2.00 Refs =  5.00 Primitives = {boolean=1.0, int=1.0}
             ConcurrentHashMultiset_Worst :: Bytes =  64.49, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
 
                       HashMultiset_Best  :: Bytes =   0.00, Objects =  0.00 Refs =  0.00 Primitives = {}
@@ -59,14 +60,14 @@ Ever wondered what's the cost of adding an entry to a HashMap? Or a new element 
 
 ==========================================         Multimaps          ==========================================
 
-                      HashMultimap_Worst :: Bytes = 352.48, Objects =  5.00 Refs = 29.06 Primitives = {int=5.0, float=1.0}
-                LinkedHashMultimap_Worst :: Bytes = 616.97, Objects =  9.00 Refs = 51.12 Primitives = {int=7.0, boolean=1.0, float=1.0}
-                      TreeMultimap_Worst :: Bytes = 232.00, Objects =  4.00 Refs = 18.00 Primitives = {int=2.0, boolean=2.0}
+                      HashMultimap_Worst :: Bytes = 352.48, Objects =  5.00 Refs = 29.06 Primitives = {float=1.0, int=5.0}
+                LinkedHashMultimap_Worst :: Bytes = 616.97, Objects =  9.00 Refs = 51.12 Primitives = {boolean=1.0, float=1.0, int=7.0}
+                      TreeMultimap_Worst :: Bytes = 232.00, Objects =  4.00 Refs = 18.00 Primitives = {boolean=2.0, int=2.0}
                  ArrayListMultimap_Worst :: Bytes = 208.48, Objects =  3.00 Refs = 16.06 Primitives = {int=3.0}
                 LinkedListMultimap_Worst :: Bytes = 297.45, Objects =  5.00 Refs = 23.18 Primitives = {int=4.0}
-                 ImmutableMultimap_Worst :: Bytes =  96.45, Objects =  2.00 Refs =  8.06 Primitives = {}
-             ImmutableListMultimap_Worst :: Bytes =  96.45, Objects =  2.00 Refs =  8.06 Primitives = {}
-              ImmutableSetMultimap_Worst :: Bytes = 104.45, Objects =  2.00 Refs =  9.06 Primitives = {}
+                 ImmutableMultimap_Worst :: Bytes =  83.08, Objects =  2.00 Refs =  6.38 Primitives = {}
+             ImmutableListMultimap_Worst :: Bytes =  83.10, Objects =  2.00 Refs =  6.39 Primitives = {}
+              ImmutableSetMultimap_Worst :: Bytes =  91.11, Objects =  2.00 Refs =  7.39 Primitives = {}
 
                       HashMultimap_Best  :: Bytes =  64.48, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
                 LinkedHashMultimap_Best  :: Bytes = 192.97, Objects =  3.00 Refs = 16.12 Primitives = {int=2.0}
@@ -79,22 +80,23 @@ Ever wondered what's the cost of adding an entry to a HashMap? Or a new element 
 
 ==========================================           Tables           ==========================================
 
-                          HashBasedTable :: Bytes = 328.48, Objects =  4.00 Refs = 28.06 Primitives = {int=5.0, float=1.0}
-                          TreeBasedTable :: Bytes = 208.00, Objects =  3.00 Refs = 17.00 Primitives = {int=2.0, boolean=2.0}
+                          HashBasedTable :: Bytes = 328.48, Objects =  4.00 Refs = 28.06 Primitives = {float=1.0, int=5.0}
+                          TreeBasedTable :: Bytes = 208.00, Objects =  3.00 Refs = 17.00 Primitives = {boolean=2.0, int=2.0}
 
 ==========================================           BiMaps           ==========================================
 
                                HashBiMap :: Bytes = 128.97, Objects =  2.00 Refs = 10.12 Primitives = {int=2.0}
-                          ImmutableBiMap :: Bytes = 128.90, Objects =  2.00 Refs = 12.11 Primitives = {}
+                          ImmutableBiMap :: Bytes = 102.23, Objects =  2.00 Refs =  8.78 Primitives = {}
 
 ==========================================            Misc            ==========================================
 
                              WeakHashMap :: Bytes =  88.48, Objects =  1.00 Refs =  8.06 Primitives = {int=1.0}
                               LinkedList :: Bytes =  40.00, Objects =  1.00 Refs =  3.00 Primitives = {}
                               ArrayDeque :: Bytes =   8.23, Objects =  0.00 Refs =  1.03 Primitives = {}
+                           LinkedHashSet :: Bytes =  80.48, Objects =  1.00 Refs =  7.06 Primitives = {int=1.0}
                            PriorityQueue :: Bytes =   8.79, Objects =  0.00 Refs =  1.10 Primitives = {}
                    PriorityBlockingQueue :: Bytes =   8.79, Objects =  0.00 Refs =  1.10 Primitives = {}
-                   ConcurrentSkipListSet :: Bytes =  59.56, Objects =  1.49 Refs =  4.47 Primitives = {int=0.0010080645161290322}
+                   ConcurrentSkipListSet :: Bytes =  60.23, Objects =  1.51 Refs =  4.52 Primitives = {int=0.0011340725806451614}
                     CopyOnWriteArrayList :: Bytes =   8.00, Objects =  0.00 Refs =  1.00 Primitives = {}
                      CopyOnWriteArraySet :: Bytes =   8.00, Objects =  0.00 Refs =  1.00 Primitives = {}
                               DelayQueue :: Bytes =   8.79, Objects =  0.00 Refs =  1.10 Primitives = {}
