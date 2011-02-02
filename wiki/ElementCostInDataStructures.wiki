@@ -2,7 +2,7 @@
 #labels Featured
 [http://goo.gl/L3wJ ElementCostOfDataStructures.java].
 
-Guava's version is updated to {{{r8}}} - compared to the previous version, we see reductions in entry memory cost for {{{ImmutableMap}}} (was 64.45 bytes) and {{{ImmutableBiMap}}} (was 128.90 bytes). Yey for ~25% memory reduction for {{{ImmutableMap}}}s!
+Guava's version is updated to {{{r8}}} - compared to the previous version, we see reductions in entry memory cost for {{{ImmutableMap}}} (was 72.90 bytes) and {{{ImmutableBiMap}}} (was 145.81 bytes). Yey for ~30% memory reduction for {{{ImmutableMap}}}s! (Hopefully I didn't miss any other improvement).
 
 = Introduction =
 
