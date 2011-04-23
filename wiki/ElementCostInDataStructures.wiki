@@ -10,6 +10,7 @@ Ever wondered what's the cost of adding an entry to a HashMap? Or a new element 
 
 Two measurements follow, one on a 64bit and one a 32bit VM (*both on a 64bit machine*). 
 
+{{{
 ==========================================     64-bit architecture    ==========================================
 
 
@@ -214,7 +215,7 @@ Two measurements follow, one on a 64bit and one a 32bit VM (*both on a 64bit mac
                            ReentrantLock :: Bytes =     40, Objects =     2 Refs =     4 Primitives = [int]
                                Semaphore :: Bytes =     40, Objects =     2 Refs =     4 Primitives = [int]
                            ReadWriteLock :: Bytes =    112, Objects =     5 Refs =    11 Primitives = [int x 3]
-
+}}}
 
 Some clarifications and observations:
   * {{{HashMultimap_Worst}}} means that every key only maps to a single value. The huge memory cost you see is because by default a big hashtable is allocated per key - [http://guava-libraries.googlecode.com/svn/trunk/javadoc/com/google/common/collect/HashMultimap.html#create(int,%20int) you can fine-tune this size though]. Conversely, the "best" case is where a _single_ key maps to all values - there, the per-entry cost degenerates to the per-entry cost of a regular HashMap, for obvious reasons. The per-entry cost of a realistic HashMultimap will be somewhere (depending on the distribution of values in keys) between these two limits. Similarly, it should be obvious why {{{HashMultiset_Best}}} reports _zero_ cost in everything. 
