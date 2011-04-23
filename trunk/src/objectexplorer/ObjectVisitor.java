@@ -9,41 +9,41 @@ package objectexplorer;
  * @see ObjectExplorer
  */
 public interface ObjectVisitor<T> {
+  /**
+   * Visits an explored value (the whole chain from the root object
+   * leading to the value is provided), and decides whether to continue
+   * the exploration of that value.
+   *
+   * <p>In case the explored value is either primitive or {@code null}
+   * (e.g., if {@code chain.isPrimitive() || chain.getValue() == null}),
+   * the return value is meaningless and is ignored.
+   *
+   * @param chain the chain that leads to the explored value.
+   * @return {@link Traversal#EXPLORE} to denote that the visited object
+   * should be further explored, or {@link Traversal#SKIP} to avoid
+   * exploring it.
+   */
+  Traversal visit(Chain chain);
+
+  /**
+   * Returns an arbitrary value (presumably constructed during the object
+   * graph traversal).
+   */
+  T result();
+
+  /**
+   * Constants that denote how the traversal of a given object (chain)
+   * should continue.
+   */
+  enum Traversal {
     /**
-     * Visits an explored value (the whole chain from the root object
-     * leading to the value is provided), and decides whether to continue
-     * the exploration of that value.
-     *
-     * <p>In case the explored value is either primitive or {@code null}
-     * (e.g., if {@code chain.isPrimitive() || chain.getValue() == null}),
-     * the return value is meaningless and is ignored. 
-     *
-     * @param chain the chain that leads to the explored value.
-     * @return {@link Traversal.EXPLORE} to denote that the visited object
-     * should be further explored, or {@link Traversal#SKIP} to avoid
-     * exploring it.
+     * The visited object should be further explored.
      */
-    Traversal visit(Chain chain);
+    EXPLORE,
 
     /**
-     * Returns an arbitrary value (presumably constructed during the object
-     * graph traversal).
+     * The visited object should not be explored.
      */
-    T result();
-
-    /**
-     * Constants that denote how the traversal of a given object (chain)
-     * should continue.
-     */
-    enum Traversal {
-        /**
-         * The visited object should be further explored.
-         */
-        EXPLORE,
-
-        /**
-         * The visited object should not be explored.
-         */
-        SKIP
-    }
+    SKIP
+  }
 }
