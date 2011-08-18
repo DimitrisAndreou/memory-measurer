@@ -20,6 +20,7 @@ Two measurements follow, one on a 64bit and one a 32bit VM (*both on a 64bit mac
                            ImmutableList :: Bytes =   8.00, Objects =  0.00 Refs =  1.00 Primitives = {}
                                  HashSet :: Bytes =  64.48, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
                             ImmutableSet :: Bytes =  24.45, Objects =  0.00 Refs =  3.06 Primitives = {}
+                           LinkedHashSet :: Bytes =  80.48, Objects =  1.00 Refs =  7.06 Primitives = {int=1.0}
                                  TreeSet :: Bytes =  64.00, Objects =  1.00 Refs =  5.00 Primitives = {boolean=1.0}
                       ImmutableSortedSet :: Bytes =   8.00, Objects =  0.00 Refs =  1.00 Primitives = {}
                                  HashMap :: Bytes =  64.48, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
@@ -96,7 +97,6 @@ Two measurements follow, one on a 64bit and one a 32bit VM (*both on a 64bit mac
                              WeakHashMap :: Bytes =  49.77, Objects =  0.58 Refs =  4.49 Primitives = {int=0.5769909274193549}
                               LinkedList :: Bytes =  40.00, Objects =  1.00 Refs =  3.00 Primitives = {}
                               ArrayDeque :: Bytes =   8.23, Objects =  0.00 Refs =  1.03 Primitives = {}
-                           LinkedHashSet :: Bytes =  80.48, Objects =  1.00 Refs =  7.06 Primitives = {int=1.0}
                            PriorityQueue :: Bytes =   8.79, Objects =  0.00 Refs =  1.10 Primitives = {}
                    PriorityBlockingQueue :: Bytes =   8.79, Objects =  0.00 Refs =  1.10 Primitives = {}
                    ConcurrentSkipListSet :: Bytes =  60.53, Objects =  1.51 Refs =  4.54 Primitives = {int=0.0011340725806451614}
@@ -124,6 +124,7 @@ Two measurements follow, one on a 64bit and one a 32bit VM (*both on a 64bit mac
                            ImmutableList :: Bytes =   4.00, Objects =  0.00 Refs =  1.00 Primitives = {}
                                  HashSet :: Bytes =  32.24, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
                             ImmutableSet :: Bytes =  12.23, Objects =  0.00 Refs =  3.06 Primitives = {}
+                           LinkedHashSet :: Bytes =  40.24, Objects =  1.00 Refs =  7.06 Primitives = {int=1.0}
                                  TreeSet :: Bytes =  32.00, Objects =  1.00 Refs =  5.00 Primitives = {boolean=1.0}
                       ImmutableSortedSet :: Bytes =   4.00, Objects =  0.00 Refs =  1.00 Primitives = {}
                                  HashMap :: Bytes =  32.24, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
@@ -200,7 +201,6 @@ Two measurements follow, one on a 64bit and one a 32bit VM (*both on a 64bit mac
                              WeakHashMap :: Bytes =  48.25, Objects =  1.00 Refs =  8.06 Primitives = {int=1.0}
                               LinkedList :: Bytes =  24.00, Objects =  1.00 Refs =  3.00 Primitives = {}
                               ArrayDeque :: Bytes =   4.11, Objects =  0.00 Refs =  1.03 Primitives = {}
-                           LinkedHashSet :: Bytes =  40.24, Objects =  1.00 Refs =  7.06 Primitives = {int=1.0}
                            PriorityQueue :: Bytes =   4.40, Objects =  0.00 Refs =  1.10 Primitives = {}
                    PriorityBlockingQueue :: Bytes =   4.40, Objects =  0.00 Refs =  1.10 Primitives = {}
                    ConcurrentSkipListSet :: Bytes =  36.80, Objects =  1.53 Refs =  4.60 Primitives = {int=0.0011340725806451614}
