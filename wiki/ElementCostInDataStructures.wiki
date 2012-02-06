@@ -141,13 +141,19 @@ Two measurements follow, just for a 32bit VM for now (* on a 64bit machine*). On
                            ReadWriteLock :: Bytes =    112, Objects =     5 Refs =    11 Primitives = [int x 3]
 }}}
 
+For `Cache` variants (including `LoadingCache`, which has the same footprint) variants, it turns out that the *cost model is very simple to explain*:
+
+  * If you use `ConcurrentHashMap`, you pay *8 words* (*32 bytes*) for each entry.
+  * If you switch to `Cache`, add *4 words* (*16 bytes*) for each entry
+  * If you add expiration of any kind (after write, or after access, or both), add *4 words* (*16 bytes*) for each entry
+  * If you use maximumSize(), add *4 words* (*16 bytes*) for each entry
+  * If you use weakKeys(), add *4 words* (*16 bytes*) for each entry
+  * If you use weakValues() or softValues(), add *4 words* (*16 bytes*) for each entry
+
+To put this in perspective: For every two features you pick (expiration, maxSize, weakKeys, weak/softValues), you could have bought a whole new ConcurrentHashMap (with the same entries) for the same cost.
+
+
 Some clarifications and observations:
-  * {{{HashMultimap_Worst}}} means that every key only maps to a single value. The huge memory cost you see is because by default a big hashtable is allocated per key - [http://guava-libraries.googlecode.com/svn/trunk/javadoc/com/google/common/collect/HashMultimap.html#create(int,%20int) you can fine-tune this size though]. Conversely, the "best" case is where a _single_ key maps to all values - there, the per-entry cost degenerates to the per-entry cost of a regular HashMap, for obvious reasons. The per-entry cost of a realistic HashMultimap will be somewhere (depending on the distribution of values in keys) between these two limits. Similarly, it should be obvious why {{{HashMultiset_Best}}} reports _zero_ cost in everything. 
+  * `HashMultimap_Worst` means that every key only maps to a single value. The huge memory cost you see is because by default a big hashtable is allocated per key - [http://guava-libraries.googlecode.com/svn/trunk/javadoc/com/google/common/collect/HashMultimap.html#create(int,%20int) you can fine-tune this size though]. Conversely, the "best" case is where a _single_ key maps to all values - there, the per-entry cost degenerates to the per-entry cost of a regular HashMap, for obvious reasons. The per-entry cost of a realistic HashMultimap will be somewhere (depending on the distribution of values in keys) between these two limits. Similarly, it should be obvious why `HashMultiset_Best` reports _zero_ cost in everything. 
 
-  * ArrayDeque does not resize at exactly the same thresholds as ArrayList does, so I had some tuning to do. The previous results were unlucky enough to show that an ArrayDeque had around _double_ the cost of an ArrayList, because the former resized but the latter did not, for the same amount of entries.
-
-  * Notice how HashBasedTable is slightly more compact than HashMultimap. (One object and one reference less for HashBasedTable). The difference is caused by HashMultimap using HashSet for the values of a key, while HashBasedTable uses HashMap for the columns of a row. But HashSet is just a wrapper over HashMap, adding the mentioned overhead.
-
-  * It's a bit silly that {{{ConcurrentHashMultiset}}} is slightly cheaper than {{{HashMultiset}}}. The difference is that the former uses {{{Integer}}} as values (of which a well known range is cached, so there's the gain), while the latter uses {{{AtomicInteger}}}, so that is mutable. Also a bit ironic that the sequential version uses {{{AtomicInteger}}} while the concurrent does not :). If {{{Map}}} had a method {{{getEntry(key)}}} (which returned {{{Entry}}}), that AtomicInteger wouldn't be needed, but such is life.
-
-  * In MapMaker, I only show the "computing" ({{{makeComputingMap()}}} instead of {{{makeMap()}}}) version of the plain MapMaker, because only in that case there is a difference between the computing and the plain version.
+  * It's a bit silly that `ConcurrentHashMultiset` is slightly cheaper than `HashMultiset`. The difference is that the former uses `Integer` as values (of which a well known range is cached, so there's the gain), while the latter uses `AtomicInteger`, so that is mutable. Also a bit ironic that the sequential version uses `AtomicInteger` while the concurrent does not :). If `Map` had a method `getEntry(key)` (which returned `Entry`), that AtomicInteger wouldn't be needed, but such is life.
