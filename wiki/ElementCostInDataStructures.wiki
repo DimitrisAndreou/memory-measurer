@@ -5,7 +5,7 @@
 
 Ever wondered what's the cost of adding each entry to a `HashMap`? Or one new element in a `TreeSet`? Here are the answers: the cost per-entry for each well-known structure in `Java` and `Guava`. You can use this to estimate the cost of a structure, like this: if the per-entry cost of a structure is `32 bytes`, and your structure contains 1024 elements, the structure's footprint will be around `32 kilobytes`. 
 
-The data was computed just for a 32bit VM for now (* on a 64bit machine*). On a 64bit VM, expect to have roughly double the cost. There is a [http://code-o-matic.blogspot.com/2012/02/updated-memory-cost-per-javaguava.html blog spot] about this data as well.
+The data was computed just for a 32bit VM for now (* on a 64bit machine*). On a 64bit VM, expect to have roughly double the cost. There is a [http://code-o-matic.blogspot.com/2012/02/updated-memory-cost-per-javaguava.html blog post] about this data as well.
 
 Since the most interesting and analyzed structure here is [`Loading`]`Cache`, here is a short cheat-sheet to help you memorize the cost of each feature:
 
