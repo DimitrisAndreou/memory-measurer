@@ -16,7 +16,7 @@ Since the most interesting and analyzed structure here is [`Loading`]`Cache`, he
   * If you use weakKeys(), add *4 words* (*16 bytes*) for each entry
   * If you use weakValues() or softValues(), add *4 words* (*16 bytes*) for each entry
 
-To put this in perspective: For every two features you pick (expiration, maxSize, weakKeys, weak/softValues), you could have bought a whole new ConcurrentHashMap (with the same entries) for the same cost.
+To put this in perspective: For every two features you pick (expiration, maxSize, weakKeys, weak/softValues), you could have bought a whole new `ConcurrentHashMap` (with the same entries) for the same cost.
 
 
 {{{
