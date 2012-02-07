@@ -20,134 +20,135 @@ To put this in perspective: For every two features you pick (expiration, maxSize
 
 
 {{{
-
 ==========================================     32-bit architecture    ==========================================
 
 
 ==========================================     Primitive Wrappers     ==========================================
 
-                       java.lang.Boolean :: Bytes =     16, Objects =     1 Refs =     0 Primitives = [boolean]
-                          java.lang.Byte :: Bytes =     16, Objects =     1 Refs =     0 Primitives = [byte]
-                         java.lang.Short :: Bytes =     16, Objects =     1 Refs =     0 Primitives = [short]
-                     java.lang.Character :: Bytes =     16, Objects =     1 Refs =     0 Primitives = [char]
-                       java.lang.Integer :: Bytes =     16, Objects =     1 Refs =     0 Primitives = [int]
-                          java.lang.Long :: Bytes =     16, Objects =     1 Refs =     0 Primitives = [long]
-                         java.lang.Float :: Bytes =     16, Objects =     1 Refs =     0 Primitives = [float]
-                        java.lang.Double :: Bytes =     16, Objects =     1 Refs =     0 Primitives = [double]
+                           java.lang.Boolean :: Bytes =     16, Objects =     1 Refs =     0 Primitives = [boolean]
+                              java.lang.Byte :: Bytes =     16, Objects =     1 Refs =     0 Primitives = [byte]
+                             java.lang.Short :: Bytes =     16, Objects =     1 Refs =     0 Primitives = [short]
+                         java.lang.Character :: Bytes =     16, Objects =     1 Refs =     0 Primitives = [char]
+                           java.lang.Integer :: Bytes =     16, Objects =     1 Refs =     0 Primitives = [int]
+                              java.lang.Long :: Bytes =     16, Objects =     1 Refs =     0 Primitives = [long]
+                             java.lang.Float :: Bytes =     16, Objects =     1 Refs =     0 Primitives = [float]
+                            java.lang.Double :: Bytes =     16, Objects =     1 Refs =     0 Primitives = [double]
 
 ==========================================   Basic Lists, Sets, Maps  ==========================================
 
-                               ArrayList :: Bytes =   5.85, Objects =  0.00 Refs =  1.46 Primitives = {}
-                           ImmutableList :: Bytes =   4.00, Objects =  0.00 Refs =  1.00 Primitives = {}
-                                 HashSet :: Bytes =  32.24, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
-                            ImmutableSet :: Bytes =  12.23, Objects =  0.00 Refs =  3.06 Primitives = {}
-                           LinkedHashSet :: Bytes =  40.24, Objects =  1.00 Refs =  7.06 Primitives = {int=1.0}
-                                 TreeSet :: Bytes =  32.00, Objects =  1.00 Refs =  5.00 Primitives = {boolean=1.0}
-                      ImmutableSortedSet :: Bytes =   4.00, Objects =  0.00 Refs =  1.00 Primitives = {}
-                                 HashMap :: Bytes =  32.24, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
-                            ImmutableMap :: Bytes =  27.02, Objects =  1.00 Refs =  4.39 Primitives = {}
-                           LinkedHashMap :: Bytes =  40.24, Objects =  1.00 Refs =  7.06 Primitives = {int=1.0}
-                                 TreeMap :: Bytes =  32.00, Objects =  1.00 Refs =  5.00 Primitives = {boolean=1.0}
-                      ImmutableSortedMap :: Bytes =  20.00, Objects =  1.00 Refs =  3.00 Primitives = {}
+                                   ArrayList :: Bytes =   5.85, Objects =  0.00 Refs =  1.46 Primitives = {}
+                               ImmutableList :: Bytes =   4.00, Objects =  0.00 Refs =  1.00 Primitives = {}
+                                     HashSet :: Bytes =  32.24, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
+                                ImmutableSet :: Bytes =  12.23, Objects =  0.00 Refs =  3.06 Primitives = {}
+                               LinkedHashSet :: Bytes =  40.24, Objects =  1.00 Refs =  7.06 Primitives = {int=1.0}
+  Collections.newSetFromMap(IdentityHashMap) :: Bytes =  16.48, Objects =  0.00 Refs =  4.12 Primitives = {}
+                                     TreeSet :: Bytes =  32.00, Objects =  1.00 Refs =  5.00 Primitives = {boolean=1.0}
+                          ImmutableSortedSet :: Bytes =   4.00, Objects =  0.00 Refs =  1.00 Primitives = {}
+                                     HashMap :: Bytes =  32.24, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
+                                ImmutableMap :: Bytes =  26.97, Objects =  1.00 Refs =  4.39 Primitives = {}
+                               LinkedHashMap :: Bytes =  40.24, Objects =  1.00 Refs =  7.06 Primitives = {int=1.0}
+                             IdentityHashMap :: Bytes =  16.48, Objects =  0.00 Refs =  4.12 Primitives = {}
+                                     TreeMap :: Bytes =  32.00, Objects =  1.00 Refs =  5.00 Primitives = {boolean=1.0}
+                          ImmutableSortedMap :: Bytes =  20.00, Objects =  1.00 Refs =  3.00 Primitives = {}
 
 ========================================== ConcurrentHashMap/MapMaker/Cache ==========================================
 
-                       ConcurrentHashMap :: Bytes =  32.25, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
-                                MapMaker :: Bytes =  32.25, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
-                      MapMaker_Computing :: Bytes =  48.24, Objects =  2.00 Refs =  6.06 Primitives = {int=1.0}
-                                   Cache :: Bytes =  48.24, Objects =  2.00 Refs =  6.06 Primitives = {int=1.0}
-                        MapMaker_Expires :: Bytes =  64.25, Objects =  2.00 Refs =  8.06 Primitives = {int=1.0, long=1.0}
-                           Cache_Expires :: Bytes =  64.24, Objects =  2.00 Refs =  8.06 Primitives = {int=1.0, long=1.0}
-                        MapMaker_MaxSize :: Bytes =  56.24, Objects =  2.00 Refs =  8.06 Primitives = {int=1.0}
-                           Cache_MaxSize :: Bytes =  64.25, Objects =  2.00 Refs =  8.06 Primitives = {int=1.0, long=1.0}
-                MapMaker_Expires_MaxSize :: Bytes =  72.24, Objects =  2.00 Refs = 10.06 Primitives = {int=1.0, long=1.0}
-                   Cache_Expires_MaxSize :: Bytes =  80.25, Objects =  2.00 Refs = 10.06 Primitives = {int=1.0, long=2.0}
-                       MapMaker_WeakKeys :: Bytes =  64.25, Objects =  2.00 Refs =  9.06 Primitives = {int=1.0}
-                          Cache_WeakKeys :: Bytes =  64.24, Objects =  2.00 Refs =  9.06 Primitives = {int=1.0}
-                     MapMaker_WeakValues :: Bytes =  64.24, Objects =  2.00 Refs = 10.06 Primitives = {int=1.0}
-                        Cache_WeakValues :: Bytes =  64.25, Objects =  2.00 Refs = 10.06 Primitives = {int=1.0}
-                 MapMaker_WeakKeysValues :: Bytes =  80.25, Objects =  2.00 Refs = 13.06 Primitives = {int=1.0}
-                    Cache_WeakKeysValues :: Bytes =  80.25, Objects =  2.00 Refs = 13.06 Primitives = {int=1.0}
-               MapMaker_MaxSize_WeakKeys :: Bytes =  72.24, Objects =  2.00 Refs = 11.06 Primitives = {int=1.0}
-                  Cache_MaxSize_WeakKeys :: Bytes =  80.24, Objects =  2.00 Refs = 11.06 Primitives = {int=1.0, long=1.0}
-             MapMaker_MaxSize_WeakValues :: Bytes =  72.24, Objects =  2.00 Refs = 12.06 Primitives = {int=1.0}
-                Cache_MaxSize_WeakValues :: Bytes =  80.24, Objects =  2.00 Refs = 12.06 Primitives = {int=1.0, long=1.0}
-         MapMaker_MaxSize_WeakKeysValues :: Bytes =  88.24, Objects =  2.00 Refs = 15.06 Primitives = {int=1.0}
-            Cache_MaxSize_WeakKeysValues :: Bytes =  96.24, Objects =  2.00 Refs = 15.06 Primitives = {int=1.0, long=1.0}
-               MapMaker_Expires_WeakKeys :: Bytes =  80.25, Objects =  2.00 Refs = 11.06 Primitives = {int=1.0, long=1.0}
-                  Cache_Expires_WeakKeys :: Bytes =  80.25, Objects =  2.00 Refs = 11.06 Primitives = {int=1.0, long=1.0}
-             MapMaker_Expires_WeakValues :: Bytes =  80.24, Objects =  2.00 Refs = 12.06 Primitives = {int=1.0, long=1.0}
-                Cache_Expires_WeakValues :: Bytes =  80.24, Objects =  2.00 Refs = 12.06 Primitives = {int=1.0, long=1.0}
-         MapMaker_Expires_WeakKeysValues :: Bytes =  96.24, Objects =  2.00 Refs = 15.06 Primitives = {int=1.0, long=1.0}
-            Cache_Expires_WeakKeysValues :: Bytes =  96.25, Objects =  2.00 Refs = 15.06 Primitives = {int=1.0, long=1.0}
-       MapMaker_Expires_MaxSize_WeakKeys :: Bytes =  88.24, Objects =  2.00 Refs = 13.06 Primitives = {int=1.0, long=1.0}
-          Cache_Expires_MaxSize_WeakKeys :: Bytes =  96.24, Objects =  2.00 Refs = 13.06 Primitives = {int=1.0, long=2.0}
-     MapMaker_Expires_MaxSize_WeakValues :: Bytes =  88.25, Objects =  2.00 Refs = 14.06 Primitives = {int=1.0, long=1.0}
-        Cache_Expires_MaxSize_WeakValues :: Bytes =  96.25, Objects =  2.00 Refs = 14.06 Primitives = {int=1.0, long=2.0}
- MapMaker_Expires_MaxSize_WeakKeysValues :: Bytes = 104.24, Objects =  2.00 Refs = 17.06 Primitives = {int=1.0, long=1.0}
-    Cache_Expires_MaxSize_WeakKeysValues :: Bytes = 112.24, Objects =  2.00 Refs = 17.06 Primitives = {int=1.0, long=2.0}
+                           ConcurrentHashMap :: Bytes =  32.25, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
+                                    MapMaker :: Bytes =  32.25, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
+                          MapMaker_Computing :: Bytes =  48.24, Objects =  2.00 Refs =  6.06 Primitives = {int=1.0}
+                                       Cache :: Bytes =  48.25, Objects =  2.00 Refs =  6.06 Primitives = {int=1.0}
+                            MapMaker_Expires :: Bytes =  64.24, Objects =  2.00 Refs =  8.06 Primitives = {int=1.0, long=1.0}
+                               Cache_Expires :: Bytes =  64.25, Objects =  2.00 Refs =  8.06 Primitives = {int=1.0, long=1.0}
+                            MapMaker_MaxSize :: Bytes =  56.24, Objects =  2.00 Refs =  8.06 Primitives = {int=1.0}
+                               Cache_MaxSize :: Bytes =  64.25, Objects =  2.00 Refs =  8.06 Primitives = {int=1.0, long=1.0}
+                    MapMaker_Expires_MaxSize :: Bytes =  72.24, Objects =  2.00 Refs = 10.06 Primitives = {int=1.0, long=1.0}
+                       Cache_Expires_MaxSize :: Bytes =  80.24, Objects =  2.00 Refs = 10.06 Primitives = {int=1.0, long=2.0}
+                           MapMaker_WeakKeys :: Bytes =  64.24, Objects =  2.00 Refs =  9.06 Primitives = {int=1.0}
+                              Cache_WeakKeys :: Bytes =  64.24, Objects =  2.00 Refs =  9.06 Primitives = {int=1.0}
+                         MapMaker_WeakValues :: Bytes =  64.24, Objects =  2.00 Refs = 10.06 Primitives = {int=1.0}
+                            Cache_WeakValues :: Bytes =  64.24, Objects =  2.00 Refs = 10.06 Primitives = {int=1.0}
+                     MapMaker_WeakKeysValues :: Bytes =  80.24, Objects =  2.00 Refs = 13.06 Primitives = {int=1.0}
+                        Cache_WeakKeysValues :: Bytes =  80.24, Objects =  2.00 Refs = 13.06 Primitives = {int=1.0}
+                   MapMaker_MaxSize_WeakKeys :: Bytes =  72.25, Objects =  2.00 Refs = 11.06 Primitives = {int=1.0}
+                      Cache_MaxSize_WeakKeys :: Bytes =  80.24, Objects =  2.00 Refs = 11.06 Primitives = {int=1.0, long=1.0}
+                 MapMaker_MaxSize_WeakValues :: Bytes =  72.25, Objects =  2.00 Refs = 12.06 Primitives = {int=1.0}
+                    Cache_MaxSize_WeakValues :: Bytes =  80.24, Objects =  2.00 Refs = 12.06 Primitives = {int=1.0, long=1.0}
+             MapMaker_MaxSize_WeakKeysValues :: Bytes =  88.24, Objects =  2.00 Refs = 15.06 Primitives = {int=1.0}
+                Cache_MaxSize_WeakKeysValues :: Bytes =  96.25, Objects =  2.00 Refs = 15.06 Primitives = {int=1.0, long=1.0}
+                   MapMaker_Expires_WeakKeys :: Bytes =  80.25, Objects =  2.00 Refs = 11.06 Primitives = {int=1.0, long=1.0}
+                      Cache_Expires_WeakKeys :: Bytes =  80.24, Objects =  2.00 Refs = 11.06 Primitives = {int=1.0, long=1.0}
+                 MapMaker_Expires_WeakValues :: Bytes =  80.24, Objects =  2.00 Refs = 12.06 Primitives = {int=1.0, long=1.0}
+                    Cache_Expires_WeakValues :: Bytes =  80.24, Objects =  2.00 Refs = 12.06 Primitives = {int=1.0, long=1.0}
+             MapMaker_Expires_WeakKeysValues :: Bytes =  96.25, Objects =  2.00 Refs = 15.06 Primitives = {int=1.0, long=1.0}
+                Cache_Expires_WeakKeysValues :: Bytes =  96.24, Objects =  2.00 Refs = 15.06 Primitives = {int=1.0, long=1.0}
+           MapMaker_Expires_MaxSize_WeakKeys :: Bytes =  88.25, Objects =  2.00 Refs = 13.06 Primitives = {int=1.0, long=1.0}
+              Cache_Expires_MaxSize_WeakKeys :: Bytes =  96.24, Objects =  2.00 Refs = 13.06 Primitives = {int=1.0, long=2.0}
+         MapMaker_Expires_MaxSize_WeakValues :: Bytes =  88.24, Objects =  2.00 Refs = 14.06 Primitives = {int=1.0, long=1.0}
+            Cache_Expires_MaxSize_WeakValues :: Bytes =  96.24, Objects =  2.00 Refs = 14.06 Primitives = {int=1.0, long=2.0}
+     MapMaker_Expires_MaxSize_WeakKeysValues :: Bytes = 104.24, Objects =  2.00 Refs = 17.06 Primitives = {int=1.0, long=1.0}
+        Cache_Expires_MaxSize_WeakKeysValues :: Bytes = 112.24, Objects =  2.00 Refs = 17.06 Primitives = {int=1.0, long=2.0}
 
 ==========================================         Multisets          ==========================================
 
-                      HashMultiset_Worst :: Bytes =  48.24, Objects =  2.00 Refs =  5.06 Primitives = {int=2.0}
-                LinkedHashMultiset_Worst :: Bytes =  56.24, Objects =  2.00 Refs =  7.06 Primitives = {int=2.0}
-                      TreeMultiset_Worst :: Bytes =  32.00, Objects =  1.00 Refs =  3.00 Primitives = {int=1.0, long=1.0}
-            ConcurrentHashMultiset_Worst :: Bytes =  48.25, Objects =  2.00 Refs =  5.06 Primitives = {int=2.0}
+                          HashMultiset_Worst :: Bytes =  48.24, Objects =  2.00 Refs =  5.06 Primitives = {int=2.0}
+                    LinkedHashMultiset_Worst :: Bytes =  56.24, Objects =  2.00 Refs =  7.06 Primitives = {int=2.0}
+                          TreeMultiset_Worst :: Bytes =  32.00, Objects =  1.00 Refs =  3.00 Primitives = {int=1.0, long=1.0}
+                ConcurrentHashMultiset_Worst :: Bytes =  48.25, Objects =  2.00 Refs =  5.06 Primitives = {int=2.0}
 
-                      HashMultiset_Best  :: Bytes =   0.00, Objects =  0.00 Refs =  0.00 Primitives = {}
-                LinkedHashMultiset_Best  :: Bytes =   0.00, Objects =  0.00 Refs =  0.00 Primitives = {}
-                      TreeMultiset_Best  :: Bytes =   0.00, Objects =  0.00 Refs =  0.00 Primitives = {}
-            ConcurrentHashMultiset_Best  :: Bytes =   0.00, Objects =  0.00 Refs =  0.00 Primitives = {}
+                          HashMultiset_Best  :: Bytes =   0.00, Objects =  0.00 Refs =  0.00 Primitives = {}
+                    LinkedHashMultiset_Best  :: Bytes =   0.00, Objects =  0.00 Refs =  0.00 Primitives = {}
+                          TreeMultiset_Best  :: Bytes =   0.00, Objects =  0.00 Refs =  0.00 Primitives = {}
+                ConcurrentHashMultiset_Best  :: Bytes =   0.00, Objects =  0.00 Refs =  0.00 Primitives = {}
 
 ==========================================         Multimaps          ==========================================
 
-                      HashMultimap_Worst :: Bytes = 192.24, Objects =  5.00 Refs = 29.06 Primitives = {int=5.0, float=1.0}
-                LinkedHashMultimap_Worst :: Bytes = 328.48, Objects =  9.00 Refs = 51.12 Primitives = {int=7.0, float=1.0, boolean=1.0}
-                      TreeMultimap_Worst :: Bytes = 128.00, Objects =  4.00 Refs = 18.00 Primitives = {int=2.0, boolean=2.0}
-                 ArrayListMultimap_Worst :: Bytes = 112.24, Objects =  3.00 Refs = 16.06 Primitives = {int=3.0}
-                LinkedListMultimap_Worst :: Bytes = 152.73, Objects =  5.00 Refs = 23.18 Primitives = {int=4.0}
-                 ImmutableMultimap_Worst :: Bytes =  42.93, Objects =  2.00 Refs =  6.38 Primitives = {}
-             ImmutableListMultimap_Worst :: Bytes =  43.00, Objects =  2.00 Refs =  6.39 Primitives = {}
-              ImmutableSetMultimap_Worst :: Bytes =  50.97, Objects =  2.00 Refs =  6.38 Primitives = {int=1.0}
+                          HashMultimap_Worst :: Bytes = 192.24, Objects =  5.00 Refs = 29.06 Primitives = {float=1.0, int=5.0}
+                    LinkedHashMultimap_Worst :: Bytes = 328.48, Objects =  9.00 Refs = 51.12 Primitives = {float=1.0, boolean=1.0, int=7.0}
+                          TreeMultimap_Worst :: Bytes = 128.00, Objects =  4.00 Refs = 18.00 Primitives = {boolean=2.0, int=2.0}
+                     ArrayListMultimap_Worst :: Bytes = 112.24, Objects =  3.00 Refs = 16.06 Primitives = {int=3.0}
+                    LinkedListMultimap_Worst :: Bytes = 152.73, Objects =  5.00 Refs = 23.18 Primitives = {int=4.0}
+                     ImmutableMultimap_Worst :: Bytes =  43.00, Objects =  2.00 Refs =  6.39 Primitives = {}
+                 ImmutableListMultimap_Worst :: Bytes =  42.99, Objects =  2.00 Refs =  6.39 Primitives = {}
+                  ImmutableSetMultimap_Worst :: Bytes =  50.98, Objects =  2.00 Refs =  6.39 Primitives = {int=1.0}
 
-                      HashMultimap_Best  :: Bytes =  32.24, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
-                LinkedHashMultimap_Best  :: Bytes =  96.48, Objects =  3.00 Refs = 16.12 Primitives = {int=2.0}
-                      TreeMultimap_Best  :: Bytes =  32.00, Objects =  1.00 Refs =  5.00 Primitives = {boolean=1.0}
-                 ArrayListMultimap_Best  :: Bytes =   5.85, Objects =  0.00 Refs =  1.46 Primitives = {}
-                LinkedListMultimap_Best  :: Bytes =  32.00, Objects =  1.00 Refs =  6.00 Primitives = {}
-                 ImmutableMultimap_Best  :: Bytes =   4.00, Objects =  0.00 Refs =  1.00 Primitives = {}
-             ImmutableListMultimap_Best  :: Bytes =   4.00, Objects =  0.00 Refs =  1.00 Primitives = {}
-              ImmutableSetMultimap_Best  :: Bytes =  12.23, Objects =  0.00 Refs =  3.06 Primitives = {}
+                          HashMultimap_Best  :: Bytes =  32.24, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
+                    LinkedHashMultimap_Best  :: Bytes =  96.48, Objects =  3.00 Refs = 16.12 Primitives = {int=2.0}
+                          TreeMultimap_Best  :: Bytes =  32.00, Objects =  1.00 Refs =  5.00 Primitives = {boolean=1.0}
+                     ArrayListMultimap_Best  :: Bytes =   5.85, Objects =  0.00 Refs =  1.46 Primitives = {}
+                    LinkedListMultimap_Best  :: Bytes =  32.00, Objects =  1.00 Refs =  6.00 Primitives = {}
+                     ImmutableMultimap_Best  :: Bytes =   4.00, Objects =  0.00 Refs =  1.00 Primitives = {}
+                 ImmutableListMultimap_Best  :: Bytes =   4.00, Objects =  0.00 Refs =  1.00 Primitives = {}
+                  ImmutableSetMultimap_Best  :: Bytes =  12.23, Objects =  0.00 Refs =  3.06 Primitives = {}
 
 ==========================================           Tables           ==========================================
 
-                          HashBasedTable :: Bytes = 120.24, Objects =  4.00 Refs = 14.06 Primitives = {int=5.0, float=1.0}
-                          TreeBasedTable :: Bytes = 112.00, Objects =  3.00 Refs = 17.00 Primitives = {int=2.0, boolean=2.0}
+                              HashBasedTable :: Bytes = 120.24, Objects =  4.00 Refs = 14.06 Primitives = {float=1.0, int=5.0}
+                              TreeBasedTable :: Bytes = 112.00, Objects =  3.00 Refs = 17.00 Primitives = {boolean=2.0, int=2.0}
 
 ==========================================           BiMaps           ==========================================
 
-                               HashBiMap :: Bytes =  64.48, Objects =  2.00 Refs = 10.12 Primitives = {int=2.0}
-                          ImmutableBiMap :: Bytes =  53.96, Objects =  2.00 Refs =  8.77 Primitives = {}
+                                   HashBiMap :: Bytes =  64.48, Objects =  2.00 Refs = 10.12 Primitives = {int=2.0}
+                              ImmutableBiMap :: Bytes =  53.99, Objects =  2.00 Refs =  8.78 Primitives = {}
 
 ==========================================            Misc            ==========================================
 
-                             WeakHashMap :: Bytes =  48.24, Objects =  1.00 Refs =  8.06 Primitives = {int=1.0}
-                              LinkedList :: Bytes =  24.00, Objects =  1.00 Refs =  3.00 Primitives = {}
-                              ArrayDeque :: Bytes =   4.11, Objects =  0.00 Refs =  1.03 Primitives = {}
-                           PriorityQueue :: Bytes =   4.40, Objects =  0.00 Refs =  1.10 Primitives = {}
-                   PriorityBlockingQueue :: Bytes =   4.40, Objects =  0.00 Refs =  1.10 Primitives = {}
-                   ConcurrentSkipListSet :: Bytes =  35.80, Objects =  1.49 Refs =  4.48 Primitives = {int=0.0010080645161290322}
-                    CopyOnWriteArrayList :: Bytes =   4.00, Objects =  0.00 Refs =  1.00 Primitives = {}
-                     CopyOnWriteArraySet :: Bytes =   4.00, Objects =  0.00 Refs =  1.00 Primitives = {}
-                              DelayQueue :: Bytes =   4.40, Objects =  0.00 Refs =  1.10 Primitives = {}
-                     LinkedBlockingQueue :: Bytes =  16.00, Objects =  1.00 Refs =  2.00 Primitives = {}
-                     LinkedBlockingDeque :: Bytes =  24.00, Objects =  1.00 Refs =  3.00 Primitives = {}
+                                 WeakHashMap :: Bytes =  48.24, Objects =  1.00 Refs =  8.06 Primitives = {int=1.0}
+                                  LinkedList :: Bytes =  24.00, Objects =  1.00 Refs =  3.00 Primitives = {}
+                                  ArrayDeque :: Bytes =   4.11, Objects =  0.00 Refs =  1.03 Primitives = {}
+                               PriorityQueue :: Bytes =   4.40, Objects =  0.00 Refs =  1.10 Primitives = {}
+                       PriorityBlockingQueue :: Bytes =   4.40, Objects =  0.00 Refs =  1.10 Primitives = {}
+                       ConcurrentSkipListSet :: Bytes =  35.99, Objects =  1.50 Refs =  4.50 Primitives = {int=0.0011340725806451614}
+                        CopyOnWriteArrayList :: Bytes =   4.00, Objects =  0.00 Refs =  1.00 Primitives = {}
+                         CopyOnWriteArraySet :: Bytes =   4.00, Objects =  0.00 Refs =  1.00 Primitives = {}
+                                  DelayQueue :: Bytes =   4.40, Objects =  0.00 Refs =  1.10 Primitives = {}
+                         LinkedBlockingQueue :: Bytes =  16.00, Objects =  1.00 Refs =  2.00 Primitives = {}
+                         LinkedBlockingDeque :: Bytes =  24.00, Objects =  1.00 Refs =  3.00 Primitives = {}
 
 ==========================================   Synchronization Structures ==========================================
 
-                           ReentrantLock :: Bytes =     40, Objects =     2 Refs =     4 Primitives = [int]
-                               Semaphore :: Bytes =     40, Objects =     2 Refs =     4 Primitives = [int]
-                           ReadWriteLock :: Bytes =    112, Objects =     5 Refs =    11 Primitives = [int x 3]
+                               ReentrantLock :: Bytes =     40, Objects =     2 Refs =     4 Primitives = [int]
+                                   Semaphore :: Bytes =     40, Objects =     2 Refs =     4 Primitives = [int]
+                               ReadWriteLock :: Bytes =    112, Objects =     5 Refs =    11 Primitives = [int x 3]
 }}}
 
 A few more clarifications and observations:
