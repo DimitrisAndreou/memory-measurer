@@ -33,7 +33,8 @@ To put this in perspective: For every two features you pick (expiration, maxSize
                               java.lang.Long :: Bytes =     16, Objects =     1 Refs =     0 Primitives = [long]
                              java.lang.Float :: Bytes =     16, Objects =     1 Refs =     0 Primitives = [float]
                             java.lang.Double :: Bytes =     16, Objects =     1 Refs =     0 Primitives = [double]
-
+}}}
+{{{
 ==========================================   Basic Lists, Sets, Maps  ==========================================
 
                                    ArrayList :: Bytes =   5.85, Objects =  0.00 Refs =  1.46 Primitives = {}
@@ -50,7 +51,8 @@ To put this in perspective: For every two features you pick (expiration, maxSize
                              IdentityHashMap :: Bytes =  16.48, Objects =  0.00 Refs =  4.12 Primitives = {}
                                      TreeMap :: Bytes =  32.00, Objects =  1.00 Refs =  5.00 Primitives = {boolean=1.0}
                           ImmutableSortedMap :: Bytes =  20.00, Objects =  1.00 Refs =  3.00 Primitives = {}
-
+}}}
+{{{
 ========================================== ConcurrentHashMap/MapMaker/Cache ==========================================
 
                            ConcurrentHashMap :: Bytes =  32.25, Objects =  1.00 Refs =  5.06 Primitives = {int=1.0}
@@ -87,7 +89,8 @@ To put this in perspective: For every two features you pick (expiration, maxSize
             Cache_Expires_MaxSize_WeakValues :: Bytes =  96.24, Objects =  2.00 Refs = 14.06 Primitives = {int=1.0, long=2.0}
      MapMaker_Expires_MaxSize_WeakKeysValues :: Bytes = 104.24, Objects =  2.00 Refs = 17.06 Primitives = {int=1.0, long=1.0}
         Cache_Expires_MaxSize_WeakKeysValues :: Bytes = 112.24, Objects =  2.00 Refs = 17.06 Primitives = {int=1.0, long=2.0}
-
+}}}
+{{{
 ==========================================         Multisets          ==========================================
 
                           HashMultiset_Worst :: Bytes =  48.24, Objects =  2.00 Refs =  5.06 Primitives = {int=2.0}
@@ -99,7 +102,8 @@ To put this in perspective: For every two features you pick (expiration, maxSize
                     LinkedHashMultiset_Best  :: Bytes =   0.00, Objects =  0.00 Refs =  0.00 Primitives = {}
                           TreeMultiset_Best  :: Bytes =   0.00, Objects =  0.00 Refs =  0.00 Primitives = {}
                 ConcurrentHashMultiset_Best  :: Bytes =   0.00, Objects =  0.00 Refs =  0.00 Primitives = {}
-
+}}}
+{{{
 ==========================================         Multimaps          ==========================================
 
                           HashMultimap_Worst :: Bytes = 192.24, Objects =  5.00 Refs = 29.06 Primitives = {float=1.0, int=5.0}
@@ -119,17 +123,19 @@ To put this in perspective: For every two features you pick (expiration, maxSize
                      ImmutableMultimap_Best  :: Bytes =   4.00, Objects =  0.00 Refs =  1.00 Primitives = {}
                  ImmutableListMultimap_Best  :: Bytes =   4.00, Objects =  0.00 Refs =  1.00 Primitives = {}
                   ImmutableSetMultimap_Best  :: Bytes =  12.23, Objects =  0.00 Refs =  3.06 Primitives = {}
-
+}}}
+{{{
 ==========================================           Tables           ==========================================
-
                               HashBasedTable :: Bytes = 120.24, Objects =  4.00 Refs = 14.06 Primitives = {float=1.0, int=5.0}
                               TreeBasedTable :: Bytes = 112.00, Objects =  3.00 Refs = 17.00 Primitives = {boolean=2.0, int=2.0}
-
+}}}
+{{{
 ==========================================           BiMaps           ==========================================
 
                                    HashBiMap :: Bytes =  64.48, Objects =  2.00 Refs = 10.12 Primitives = {int=2.0}
                               ImmutableBiMap :: Bytes =  53.99, Objects =  2.00 Refs =  8.78 Primitives = {}
-
+}}}
+{{{
 ==========================================            Misc            ==========================================
 
                                  WeakHashMap :: Bytes =  48.24, Objects =  1.00 Refs =  8.06 Primitives = {int=1.0}
@@ -145,7 +151,8 @@ To put this in perspective: For every two features you pick (expiration, maxSize
                          LinkedBlockingDeque :: Bytes =  24.00, Objects =  1.00 Refs =  3.00 Primitives = {}
 
 ==========================================   Synchronization Structures ==========================================
-
+}}}
+{{{
                                ReentrantLock :: Bytes =     40, Objects =     2 Refs =     4 Primitives = [int]
                                    Semaphore :: Bytes =     40, Objects =     2 Refs =     4 Primitives = [int]
                                ReadWriteLock :: Bytes =    112, Objects =     5 Refs =    11 Primitives = [int x 3]
