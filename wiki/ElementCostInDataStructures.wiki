@@ -105,8 +105,8 @@ To put this in perspective: For every two features you pick (expiration, maxSize
 {{{
 ==========================================         Multimaps          ==========================================
 
-                   HashMultimap_Diagonal :: Bytes = 136.24, Objects =  5.00 Refs = 15.06 Primitives = {int=5.0, float=1.0}
-             LinkedHashMultimap_Diagonal :: Bytes = 280.48, Objects =  9.00 Refs = 39.12 Primitives = {int=7.0, float=1.0, boolean=1.0}
+                      HashMultimap_Worst :: Bytes = 136.24, Objects =  5.00 Refs = 15.06 Primitives = {int=5.0, float=1.0}
+                LinkedHashMultimap_Worst :: Bytes = 280.48, Objects =  9.00 Refs = 39.12 Primitives = {int=7.0, float=1.0, boolean=1.0}
                       TreeMultimap_Worst :: Bytes = 128.00, Objects =  4.00 Refs = 18.00 Primitives = {int=2.0, boolean=2.0}
                  ArrayListMultimap_Worst :: Bytes = 112.24, Objects =  3.00 Refs = 16.06 Primitives = {int=3.0}
                 LinkedListMultimap_Worst :: Bytes = 152.73, Objects =  5.00 Refs = 23.18 Primitives = {int=4.0}
