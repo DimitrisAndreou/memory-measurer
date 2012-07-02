@@ -18,6 +18,11 @@ Since the most interesting and analyzed structure here is [`Loading`]`Cache`, he
 
 To put this in perspective: For every two features you pick (expiration, maxSize, weakKeys, weak/softValues), you could have bought a whole new `ConcurrentHashMap` (with the same entries) for the same cost.
 
+Legend:
+"Obj": the number of objects
+"NonNull": the number of non-null _references
+"Null": the number of null references
+"Scalars": primitives
 {{{
 ==========================================     32-bit architecture    ==========================================
 
