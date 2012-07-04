@@ -27,7 +27,6 @@ To put this in perspective: For every two features you pick (expiration, maxSize
   * "Scalars": primitives
 
 No compressed oops used for 64-bit vm.
-
 {{{
 ==========================================     32-bit architecture    ==========================================
 
@@ -61,8 +60,8 @@ No compressed oops used for 64-bit vm.
                            LinkedHashMap :: Bytes:  40.00, Obj:  1.00 NonNull:  5.00 Null:  2.00 scalars: {int=1.0}
                          IdentityHashMap :: Bytes:  16.00, Obj:  0.00 NonNull:  2.00 Null:  2.00 scalars: {}
                                  TreeMap :: Bytes:  32.00, Obj:  1.00 NonNull:  4.00 Null:  1.00 scalars: {boolean=1.0}
+                      ImmutableSortedMap :: Bytes:   8.00, Obj:  0.00 NonNull:  2.00 Null:  0.00 scalars: {}
             Singleton ImmutableSortedMap :: Bytes:  96.00, Obj:  5.00 NonNull:  6.00 Null:  8.00 scalars: []
-                      ImmutableSortedMap :: Bytes:   8.04, Obj:  0.00 NonNull:  2.00 Null:  0.00 scalars: {int=0.0010080645161290322}
 }}}
 {{{
 ========================================== ConcurrentHashMap/MapMaker/Cache ==========================================
@@ -71,36 +70,36 @@ No compressed oops used for 64-bit vm.
                                 MapMaker :: Bytes:  32.25, Obj:  1.00 NonNull:  3.00 Null:  2.06 scalars: {int=1.0}
                       MapMaker_Computing :: Bytes:  48.24, Obj:  2.00 NonNull:  4.00 Null:  2.06 scalars: {int=1.0}
                                    Cache :: Bytes:  48.24, Obj:  2.00 NonNull:  4.00 Null:  2.06 scalars: {int=1.0}
-                        MapMaker_Expires :: Bytes:  64.24, Obj:  2.00 NonNull:  6.00 Null:  2.06 scalars: {long=1.0, int=1.0}
+                        MapMaker_Expires :: Bytes:  64.25, Obj:  2.00 NonNull:  6.00 Null:  2.06 scalars: {long=1.0, int=1.0}
                            Cache_Expires :: Bytes:  64.24, Obj:  2.00 NonNull:  6.00 Null:  2.06 scalars: {long=1.0, int=1.0}
-                        MapMaker_MaxSize :: Bytes:  56.25, Obj:  2.00 NonNull:  6.00 Null:  2.06 scalars: {int=1.0}
-                           Cache_MaxSize :: Bytes:  64.24, Obj:  2.00 NonNull:  6.00 Null:  2.06 scalars: {long=1.0, int=1.0}
-                MapMaker_Expires_MaxSize :: Bytes:  72.25, Obj:  2.00 NonNull:  8.00 Null:  2.06 scalars: {long=1.0, int=1.0}
+                        MapMaker_MaxSize :: Bytes:  56.24, Obj:  2.00 NonNull:  6.00 Null:  2.06 scalars: {int=1.0}
+                           Cache_MaxSize :: Bytes:  64.25, Obj:  2.00 NonNull:  6.00 Null:  2.06 scalars: {long=1.0, int=1.0}
+                MapMaker_Expires_MaxSize :: Bytes:  72.24, Obj:  2.00 NonNull:  8.00 Null:  2.06 scalars: {long=1.0, int=1.0}
                    Cache_Expires_MaxSize :: Bytes:  80.24, Obj:  2.00 NonNull:  8.00 Null:  2.06 scalars: {long=2.0, int=1.0}
-                       MapMaker_WeakKeys :: Bytes:  64.24, Obj:  2.00 NonNull:  5.00 Null:  4.06 scalars: {int=1.0}
+                       MapMaker_WeakKeys :: Bytes:  64.25, Obj:  2.00 NonNull:  5.00 Null:  4.06 scalars: {int=1.0}
                           Cache_WeakKeys :: Bytes:  64.25, Obj:  2.00 NonNull:  5.00 Null:  4.06 scalars: {int=1.0}
                      MapMaker_WeakValues :: Bytes:  64.24, Obj:  2.00 NonNull:  6.00 Null:  4.06 scalars: {int=1.0}
-                        Cache_WeakValues :: Bytes:  64.25, Obj:  2.00 NonNull:  6.00 Null:  4.06 scalars: {int=1.0}
-                 MapMaker_WeakKeysValues :: Bytes:  80.25, Obj:  2.00 NonNull:  7.00 Null:  6.06 scalars: {int=1.0}
+                        Cache_WeakValues :: Bytes:  64.24, Obj:  2.00 NonNull:  6.00 Null:  4.06 scalars: {int=1.0}
+                 MapMaker_WeakKeysValues :: Bytes:  80.24, Obj:  2.00 NonNull:  7.00 Null:  6.06 scalars: {int=1.0}
                     Cache_WeakKeysValues :: Bytes:  80.24, Obj:  2.00 NonNull:  7.00 Null:  6.06 scalars: {int=1.0}
                MapMaker_MaxSize_WeakKeys :: Bytes:  72.24, Obj:  2.00 NonNull:  7.00 Null:  4.06 scalars: {int=1.0}
-                  Cache_MaxSize_WeakKeys :: Bytes:  80.25, Obj:  2.00 NonNull:  7.00 Null:  4.06 scalars: {long=1.0, int=1.0}
+                  Cache_MaxSize_WeakKeys :: Bytes:  80.24, Obj:  2.00 NonNull:  7.00 Null:  4.06 scalars: {long=1.0, int=1.0}
              MapMaker_MaxSize_WeakValues :: Bytes:  72.24, Obj:  2.00 NonNull:  8.00 Null:  4.06 scalars: {int=1.0}
-                Cache_MaxSize_WeakValues :: Bytes:  80.24, Obj:  2.00 NonNull:  8.00 Null:  4.06 scalars: {long=1.0, int=1.0}
+                Cache_MaxSize_WeakValues :: Bytes:  80.25, Obj:  2.00 NonNull:  8.00 Null:  4.06 scalars: {long=1.0, int=1.0}
          MapMaker_MaxSize_WeakKeysValues :: Bytes:  88.25, Obj:  2.00 NonNull:  9.00 Null:  6.06 scalars: {int=1.0}
             Cache_MaxSize_WeakKeysValues :: Bytes:  96.24, Obj:  2.00 NonNull:  9.00 Null:  6.06 scalars: {long=1.0, int=1.0}
                MapMaker_Expires_WeakKeys :: Bytes:  80.24, Obj:  2.00 NonNull:  7.00 Null:  4.06 scalars: {long=1.0, int=1.0}
-                  Cache_Expires_WeakKeys :: Bytes:  80.24, Obj:  2.00 NonNull:  7.00 Null:  4.06 scalars: {long=1.0, int=1.0}
+                  Cache_Expires_WeakKeys :: Bytes:  80.25, Obj:  2.00 NonNull:  7.00 Null:  4.06 scalars: {long=1.0, int=1.0}
              MapMaker_Expires_WeakValues :: Bytes:  80.25, Obj:  2.00 NonNull:  8.00 Null:  4.06 scalars: {long=1.0, int=1.0}
                 Cache_Expires_WeakValues :: Bytes:  80.24, Obj:  2.00 NonNull:  8.00 Null:  4.06 scalars: {long=1.0, int=1.0}
          MapMaker_Expires_WeakKeysValues :: Bytes:  96.24, Obj:  2.00 NonNull:  9.00 Null:  6.06 scalars: {long=1.0, int=1.0}
             Cache_Expires_WeakKeysValues :: Bytes:  96.24, Obj:  2.00 NonNull:  9.00 Null:  6.06 scalars: {long=1.0, int=1.0}
-       MapMaker_Expires_MaxSize_WeakKeys :: Bytes:  88.25, Obj:  2.00 NonNull:  9.00 Null:  4.06 scalars: {long=1.0, int=1.0}
-          Cache_Expires_MaxSize_WeakKeys :: Bytes:  96.24, Obj:  2.00 NonNull:  9.00 Null:  4.06 scalars: {long=2.0, int=1.0}
+       MapMaker_Expires_MaxSize_WeakKeys :: Bytes:  88.24, Obj:  2.00 NonNull:  9.00 Null:  4.06 scalars: {long=1.0, int=1.0}
+          Cache_Expires_MaxSize_WeakKeys :: Bytes:  96.25, Obj:  2.00 NonNull:  9.00 Null:  4.06 scalars: {long=2.0, int=1.0}
      MapMaker_Expires_MaxSize_WeakValues :: Bytes:  88.24, Obj:  2.00 NonNull: 10.00 Null:  4.06 scalars: {long=1.0, int=1.0}
         Cache_Expires_MaxSize_WeakValues :: Bytes:  96.24, Obj:  2.00 NonNull: 10.00 Null:  4.06 scalars: {long=2.0, int=1.0}
- MapMaker_Expires_MaxSize_WeakKeysValues :: Bytes: 104.24, Obj:  2.00 NonNull: 11.00 Null:  6.06 scalars: {long=1.0, int=1.0}
-    Cache_Expires_MaxSize_WeakKeysValues :: Bytes: 112.24, Obj:  2.00 NonNull: 11.00 Null:  6.06 scalars: {long=2.0, int=1.0}
+ MapMaker_Expires_MaxSize_WeakKeysValues :: Bytes: 104.25, Obj:  2.00 NonNull: 11.00 Null:  6.06 scalars: {long=1.0, int=1.0}
+    Cache_Expires_MaxSize_WeakKeysValues :: Bytes: 112.25, Obj:  2.00 NonNull: 11.00 Null:  6.06 scalars: {long=2.0, int=1.0}
 }}}
 {{{
 ==========================================         Multisets          ==========================================
@@ -109,8 +108,8 @@ No compressed oops used for 64-bit vm.
                 LinkedHashMultiset_Worst :: Bytes:  56.24, Obj:  2.00 NonNull:  5.00 Null:  2.06 scalars: {int=2.0}
                       TreeMultiset_Worst :: Bytes:  48.00, Obj:  1.00 NonNull:  4.00 Null:  1.00 scalars: {long=1.0, int=3.0}
             ConcurrentHashMultiset_Worst :: Bytes:  48.25, Obj:  2.00 NonNull:  3.00 Null:  2.06 scalars: {int=2.0}
-        ImmutableMultisetPopulator_Worst :: Bytes:  27.00, Obj:  1.00 NonNull:  4.00 Null:  0.39 scalars: {}
-  ImmutableSortedMultisetPopulator_Worst :: Bytes:  16.02, Obj:  0.00 NonNull:  1.00 Null:  0.00 scalars: {long=1.0, int=1.0005040322580645}
+        ImmutableMultisetPopulator_Worst :: Bytes:  27.02, Obj:  1.00 NonNull:  4.00 Null:  0.39 scalars: {}
+  ImmutableSortedMultisetPopulator_Worst :: Bytes:  16.06, Obj:  0.00 NonNull:  1.00 Null:  0.00 scalars: {long=1.0, int=1.0015120967741935}
 
                       HashMultiset_Best  :: Bytes:   0.00, Obj:  0.00 NonNull:  0.00 Null:  0.00 scalars: {}
                 LinkedHashMultiset_Best  :: Bytes:   0.00, Obj:  0.00 NonNull:  0.00 Null:  0.00 scalars: {}
@@ -127,9 +126,9 @@ No compressed oops used for 64-bit vm.
                       TreeMultimap_Worst :: Bytes: 128.00, Obj:  4.00 NonNull:  9.00 Null:  9.00 scalars: {int=2.0, boolean=2.0}
                  ArrayListMultimap_Worst :: Bytes:  80.24, Obj:  3.00 NonNull:  5.00 Null:  4.06 scalars: {int=3.0}
                 LinkedListMultimap_Worst :: Bytes: 152.73, Obj:  5.00 NonNull: 15.00 Null:  8.18 scalars: {int=4.0}
-                 ImmutableMultimap_Worst :: Bytes:  43.02, Obj:  2.00 NonNull:  5.00 Null:  1.39 scalars: {}
-             ImmutableListMultimap_Worst :: Bytes:  42.99, Obj:  2.00 NonNull:  5.00 Null:  1.39 scalars: {}
-              ImmutableSetMultimap_Worst :: Bytes:  51.00, Obj:  2.00 NonNull:  5.00 Null:  1.39 scalars: {int=1.0}
+                 ImmutableMultimap_Worst :: Bytes:  42.99, Obj:  2.00 NonNull:  5.00 Null:  1.39 scalars: {}
+             ImmutableListMultimap_Worst :: Bytes:  43.01, Obj:  2.00 NonNull:  5.00 Null:  1.39 scalars: {}
+              ImmutableSetMultimap_Worst :: Bytes:  51.03, Obj:  2.00 NonNull:  5.00 Null:  1.39 scalars: {int=1.0}
 
                       HashMultimap_Best  :: Bytes:  32.24, Obj:  1.00 NonNull:  3.00 Null:  2.06 scalars: {int=1.0}
                 LinkedHashMultimap_Best  :: Bytes:  44.12, Obj:  1.00 NonNull:  7.00 Null:  1.03 scalars: {int=1.0}
@@ -152,13 +151,13 @@ were reported. E.g. now HashMultimap_Worst is 144, with the default create(), bu
                    ImmutableTable_Square :: Bytes:  41.34, Obj:  1.04 NonNull:  6.10 Null:  1.08 scalars: {int=0.032132056451612906}
                    TreeBasedTable_Square :: Bytes:  32.86, Obj:  1.02 NonNull:  4.04 Null:  1.09 scalars: {int=0.021421370967741934, boolean=1.010710685483871}
                  HashBasedTable_Diagonal :: Bytes: 120.24, Obj:  4.00 NonNull:  7.00 Null:  7.06 scalars: {int=5.0, float=1.0}
-                 ImmutableTable_Diagonal :: Bytes: 154.22, Obj:  5.00 NonNull: 17.00 Null:  7.84 scalars: {}
+                 ImmutableTable_Diagonal :: Bytes: 154.25, Obj:  5.00 NonNull: 17.00 Null:  7.84 scalars: {}
                  TreeBasedTable_Diagonal :: Bytes: 112.00, Obj:  3.00 NonNull:  8.00 Null:  9.00 scalars: {int=2.0, boolean=2.0}
                 HashBasedTable_SingleRow :: Bytes:  32.24, Obj:  1.00 NonNull:  3.00 Null:  2.06 scalars: {int=1.0}
-                ImmutableTable_SingleRow :: Bytes:  87.24, Obj:  3.00 NonNull: 10.00 Null:  1.45 scalars: {int=2.0}
+                ImmutableTable_SingleRow :: Bytes:  87.20, Obj:  3.00 NonNull: 10.00 Null:  1.45 scalars: {int=2.0}
                 TreeBasedTable_SingleRow :: Bytes:  32.00, Obj:  1.00 NonNull:  4.00 Null:  1.00 scalars: {boolean=1.0}
              HashBasedTable_SingleColumn :: Bytes: 120.24, Obj:  4.00 NonNull:  7.00 Null:  7.06 scalars: {int=5.0, float=1.0}
-             ImmutableTable_SingleColumn :: Bytes: 103.26, Obj:  4.00 NonNull: 11.00 Null:  1.45 scalars: {int=2.0}
+             ImmutableTable_SingleColumn :: Bytes: 103.20, Obj:  4.00 NonNull: 11.00 Null:  1.44 scalars: {int=2.0}
              TreeBasedTable_SingleColumn :: Bytes: 112.00, Obj:  3.00 NonNull:  8.00 Null:  9.00 scalars: {int=2.0, boolean=2.0}
 }}}
 For a Table of N elements:
@@ -170,7 +169,7 @@ For a Table of N elements:
 ==========================================           BiMaps           ==========================================
 
                                HashBiMap :: Bytes:  64.48, Obj:  2.00 NonNull:  6.00 Null:  4.12 scalars: {int=2.0}
-                          ImmutableBiMap :: Bytes:  53.94, Obj:  2.00 NonNull:  8.00 Null:  0.77 scalars: {}
+                          ImmutableBiMap :: Bytes:  54.00, Obj:  2.00 NonNull:  8.00 Null:  0.78 scalars: {}
 }}}
 {{{
 ==========================================            Misc            ==========================================
@@ -180,7 +179,7 @@ For a Table of N elements:
                               ArrayDeque :: Bytes:   4.11, Obj:  0.00 NonNull:  1.00 Null:  0.03 scalars: {}
                            PriorityQueue :: Bytes:   4.40, Obj:  0.00 NonNull:  1.00 Null:  0.10 scalars: {}
                    PriorityBlockingQueue :: Bytes:   4.40, Obj:  0.00 NonNull:  1.00 Null:  0.10 scalars: {}
-                   ConcurrentSkipListSet :: Bytes:  36.26, Obj:  1.51 NonNull:  4.28 Null:  0.25 scalars: {int=0.0011340725806451614}
+                   ConcurrentSkipListSet :: Bytes:  36.34, Obj:  1.51 NonNull:  4.29 Null:  0.26 scalars: {int=0.0012600806451612903}
                     CopyOnWriteArrayList :: Bytes:   4.00, Obj:  0.00 NonNull:  1.00 Null:  0.00 scalars: {}
                      CopyOnWriteArraySet :: Bytes:   4.00, Obj:  0.00 NonNull:  1.00 Null:  0.00 scalars: {}
                               DelayQueue :: Bytes:   4.40, Obj:  0.00 NonNull:  1.00 Null:  0.10 scalars: {}
@@ -228,14 +227,14 @@ For a Table of N elements:
                            LinkedHashMap :: Bytes:  80.00, Obj:  1.00 NonNull:  5.00 Null:  2.00 scalars: {int=1.0}
                          IdentityHashMap :: Bytes:  32.00, Obj:  0.00 NonNull:  2.00 Null:  2.00 scalars: {}
                                  TreeMap :: Bytes:  64.00, Obj:  1.00 NonNull:  4.00 Null:  1.00 scalars: {boolean=1.0}
-            Singleton ImmutableSortedMap :: Bytes: 192.00, Obj:  5.00 NonNull:  6.00 Null:  8.00 scalars: []
                       ImmutableSortedMap :: Bytes:  16.00, Obj:  0.00 NonNull:  2.00 Null:  0.00 scalars: {}
+            Singleton ImmutableSortedMap :: Bytes: 192.00, Obj:  5.00 NonNull:  6.00 Null:  8.00 scalars: []
 }}}
 {{{
 ========================================== ConcurrentHashMap/MapMaker/Cache ==========================================
 
                        ConcurrentHashMap :: Bytes:  64.49, Obj:  1.00 NonNull:  3.00 Null:  2.06 scalars: {int=1.0}
-                                MapMaker :: Bytes:  64.49, Obj:  1.00 NonNull:  3.00 Null:  2.06 scalars: {int=1.0}
+                                MapMaker :: Bytes:  64.50, Obj:  1.00 NonNull:  3.00 Null:  2.06 scalars: {int=1.0}
                       MapMaker_Computing :: Bytes:  88.49, Obj:  2.00 NonNull:  4.00 Null:  2.06 scalars: {int=1.0}
                                    Cache :: Bytes:  88.49, Obj:  2.00 NonNull:  4.00 Null:  2.06 scalars: {int=1.0}
                         MapMaker_Expires :: Bytes: 112.49, Obj:  2.00 NonNull:  6.00 Null:  2.06 scalars: {int=1.0, long=1.0}
@@ -244,28 +243,28 @@ For a Table of N elements:
                            Cache_MaxSize :: Bytes: 112.49, Obj:  2.00 NonNull:  6.00 Null:  2.06 scalars: {int=1.0, long=1.0}
                 MapMaker_Expires_MaxSize :: Bytes: 128.49, Obj:  2.00 NonNull:  8.00 Null:  2.06 scalars: {int=1.0, long=1.0}
                    Cache_Expires_MaxSize :: Bytes: 136.49, Obj:  2.00 NonNull:  8.00 Null:  2.06 scalars: {int=1.0, long=2.0}
-                       MapMaker_WeakKeys :: Bytes: 112.48, Obj:  2.00 NonNull:  5.00 Null:  4.06 scalars: {int=1.0}
+                       MapMaker_WeakKeys :: Bytes: 112.49, Obj:  2.00 NonNull:  5.00 Null:  4.06 scalars: {int=1.0}
                           Cache_WeakKeys :: Bytes: 112.49, Obj:  2.00 NonNull:  5.00 Null:  4.06 scalars: {int=1.0}
                      MapMaker_WeakValues :: Bytes: 120.49, Obj:  2.00 NonNull:  6.00 Null:  4.06 scalars: {int=1.0}
                         Cache_WeakValues :: Bytes: 120.49, Obj:  2.00 NonNull:  6.00 Null:  4.06 scalars: {int=1.0}
-                 MapMaker_WeakKeysValues :: Bytes: 144.48, Obj:  2.00 NonNull:  7.00 Null:  6.06 scalars: {int=1.0}
+                 MapMaker_WeakKeysValues :: Bytes: 144.49, Obj:  2.00 NonNull:  7.00 Null:  6.06 scalars: {int=1.0}
                     Cache_WeakKeysValues :: Bytes: 144.48, Obj:  2.00 NonNull:  7.00 Null:  6.06 scalars: {int=1.0}
                MapMaker_MaxSize_WeakKeys :: Bytes: 128.48, Obj:  2.00 NonNull:  7.00 Null:  4.06 scalars: {int=1.0}
-                  Cache_MaxSize_WeakKeys :: Bytes: 136.48, Obj:  2.00 NonNull:  7.00 Null:  4.06 scalars: {int=1.0, long=1.0}
+                  Cache_MaxSize_WeakKeys :: Bytes: 136.49, Obj:  2.00 NonNull:  7.00 Null:  4.06 scalars: {int=1.0, long=1.0}
              MapMaker_MaxSize_WeakValues :: Bytes: 136.49, Obj:  2.00 NonNull:  8.00 Null:  4.06 scalars: {int=1.0}
                 Cache_MaxSize_WeakValues :: Bytes: 144.49, Obj:  2.00 NonNull:  8.00 Null:  4.06 scalars: {int=1.0, long=1.0}
          MapMaker_MaxSize_WeakKeysValues :: Bytes: 160.49, Obj:  2.00 NonNull:  9.00 Null:  6.06 scalars: {int=1.0}
             Cache_MaxSize_WeakKeysValues :: Bytes: 168.49, Obj:  2.00 NonNull:  9.00 Null:  6.06 scalars: {int=1.0, long=1.0}
                MapMaker_Expires_WeakKeys :: Bytes: 136.48, Obj:  2.00 NonNull:  7.00 Null:  4.06 scalars: {int=1.0, long=1.0}
-                  Cache_Expires_WeakKeys :: Bytes: 136.49, Obj:  2.00 NonNull:  7.00 Null:  4.06 scalars: {int=1.0, long=1.0}
-             MapMaker_Expires_WeakValues :: Bytes: 144.49, Obj:  2.00 NonNull:  8.00 Null:  4.06 scalars: {int=1.0, long=1.0}
+                  Cache_Expires_WeakKeys :: Bytes: 136.48, Obj:  2.00 NonNull:  7.00 Null:  4.06 scalars: {int=1.0, long=1.0}
+             MapMaker_Expires_WeakValues :: Bytes: 144.48, Obj:  2.00 NonNull:  8.00 Null:  4.06 scalars: {int=1.0, long=1.0}
                 Cache_Expires_WeakValues :: Bytes: 144.49, Obj:  2.00 NonNull:  8.00 Null:  4.06 scalars: {int=1.0, long=1.0}
-         MapMaker_Expires_WeakKeysValues :: Bytes: 168.48, Obj:  2.00 NonNull:  9.00 Null:  6.06 scalars: {int=1.0, long=1.0}
+         MapMaker_Expires_WeakKeysValues :: Bytes: 168.49, Obj:  2.00 NonNull:  9.00 Null:  6.06 scalars: {int=1.0, long=1.0}
             Cache_Expires_WeakKeysValues :: Bytes: 168.49, Obj:  2.00 NonNull:  9.00 Null:  6.06 scalars: {int=1.0, long=1.0}
-       MapMaker_Expires_MaxSize_WeakKeys :: Bytes: 152.49, Obj:  2.00 NonNull:  9.00 Null:  4.06 scalars: {int=1.0, long=1.0}
-          Cache_Expires_MaxSize_WeakKeys :: Bytes: 160.49, Obj:  2.00 NonNull:  9.00 Null:  4.06 scalars: {int=1.0, long=2.0}
+       MapMaker_Expires_MaxSize_WeakKeys :: Bytes: 152.48, Obj:  2.00 NonNull:  9.00 Null:  4.06 scalars: {int=1.0, long=1.0}
+          Cache_Expires_MaxSize_WeakKeys :: Bytes: 160.48, Obj:  2.00 NonNull:  9.00 Null:  4.06 scalars: {int=1.0, long=2.0}
      MapMaker_Expires_MaxSize_WeakValues :: Bytes: 160.48, Obj:  2.00 NonNull: 10.00 Null:  4.06 scalars: {int=1.0, long=1.0}
-        Cache_Expires_MaxSize_WeakValues :: Bytes: 168.48, Obj:  2.00 NonNull: 10.00 Null:  4.06 scalars: {int=1.0, long=2.0}
+        Cache_Expires_MaxSize_WeakValues :: Bytes: 168.49, Obj:  2.00 NonNull: 10.00 Null:  4.06 scalars: {int=1.0, long=2.0}
  MapMaker_Expires_MaxSize_WeakKeysValues :: Bytes: 184.49, Obj:  2.00 NonNull: 11.00 Null:  6.06 scalars: {int=1.0, long=1.0}
     Cache_Expires_MaxSize_WeakKeysValues :: Bytes: 192.49, Obj:  2.00 NonNull: 11.00 Null:  6.06 scalars: {int=1.0, long=2.0}
 }}}
@@ -275,8 +274,8 @@ For a Table of N elements:
                       HashMultiset_Worst :: Bytes:  88.48, Obj:  2.00 NonNull:  3.00 Null:  2.06 scalars: {int=2.0}
                 LinkedHashMultiset_Worst :: Bytes: 104.48, Obj:  2.00 NonNull:  5.00 Null:  2.06 scalars: {int=2.0}
                       TreeMultiset_Worst :: Bytes:  80.00, Obj:  1.00 NonNull:  4.00 Null:  1.00 scalars: {int=3.0, long=1.0}
-            ConcurrentHashMultiset_Worst :: Bytes:  88.50, Obj:  2.00 NonNull:  3.00 Null:  2.06 scalars: {int=2.0}
-        ImmutableMultisetPopulator_Worst :: Bytes:  51.12, Obj:  1.00 NonNull:  4.00 Null:  0.39 scalars: {}
+            ConcurrentHashMultiset_Worst :: Bytes:  88.49, Obj:  2.00 NonNull:  3.00 Null:  2.06 scalars: {int=2.0}
+        ImmutableMultisetPopulator_Worst :: Bytes:  51.14, Obj:  1.00 NonNull:  4.00 Null:  0.39 scalars: {}
   ImmutableSortedMultisetPopulator_Worst :: Bytes:  20.00, Obj:  0.00 NonNull:  1.00 Null:  0.00 scalars: {int=1.0, long=1.0}
 
                       HashMultiset_Best  :: Bytes:   0.00, Obj:  0.00 NonNull:  0.00 Null:  0.00 scalars: {}
@@ -294,9 +293,9 @@ For a Table of N elements:
                       TreeMultimap_Worst :: Bytes: 232.00, Obj:  4.00 NonNull:  9.00 Null:  9.00 scalars: {int=2.0, boolean=2.0}
                  ArrayListMultimap_Worst :: Bytes: 152.48, Obj:  3.00 NonNull:  5.00 Null:  4.06 scalars: {int=3.0}
                 LinkedListMultimap_Worst :: Bytes: 297.45, Obj:  5.00 NonNull: 15.00 Null:  8.18 scalars: {int=4.0}
-                 ImmutableMultimap_Worst :: Bytes:  83.15, Obj:  2.00 NonNull:  5.00 Null:  1.39 scalars: {}
-             ImmutableListMultimap_Worst :: Bytes:  83.15, Obj:  2.00 NonNull:  5.00 Null:  1.39 scalars: {}
-              ImmutableSetMultimap_Worst :: Bytes:  91.14, Obj:  2.00 NonNull:  5.00 Null:  1.39 scalars: {int=1.0}
+                 ImmutableMultimap_Worst :: Bytes:  83.08, Obj:  2.00 NonNull:  5.00 Null:  1.38 scalars: {}
+             ImmutableListMultimap_Worst :: Bytes:  83.16, Obj:  2.00 NonNull:  5.00 Null:  1.40 scalars: {}
+              ImmutableSetMultimap_Worst :: Bytes:  91.09, Obj:  2.00 NonNull:  5.00 Null:  1.39 scalars: {int=1.0}
 
                       HashMultimap_Best  :: Bytes:  64.48, Obj:  1.00 NonNull:  3.00 Null:  2.06 scalars: {int=1.0}
                 LinkedHashMultimap_Best  :: Bytes:  88.24, Obj:  1.00 NonNull:  7.00 Null:  1.03 scalars: {int=1.0}
@@ -316,16 +315,16 @@ were reported. E.g. now HashMultimap_Worst is 144, with the default create(), bu
 ==========================================           Tables           ==========================================
 
                    HashBasedTable_Square :: Bytes:  60.96, Obj:  1.03 NonNull:  3.04 Null:  1.47 scalars: {int=1.0428427419354838, float=0.010710685483870967}
-                   ImmutableTable_Square :: Bytes:  74.37, Obj:  1.04 NonNull:  6.10 Null:  1.08 scalars: {int=0.032132056451612906}
+                   ImmutableTable_Square :: Bytes:  74.38, Obj:  1.04 NonNull:  6.10 Null:  1.08 scalars: {int=0.032132056451612906}
                    TreeBasedTable_Square :: Bytes:  65.54, Obj:  1.02 NonNull:  4.04 Null:  1.09 scalars: {int=0.021421370967741934, boolean=1.010710685483871}
                  HashBasedTable_Diagonal :: Bytes: 216.48, Obj:  4.00 NonNull:  7.00 Null:  7.06 scalars: {int=5.0, float=1.0}
-                 ImmutableTable_Diagonal :: Bytes: 278.73, Obj:  5.00 NonNull: 17.00 Null:  7.84 scalars: {}
+                 ImmutableTable_Diagonal :: Bytes: 278.66, Obj:  5.00 NonNull: 17.00 Null:  7.83 scalars: {}
                  TreeBasedTable_Diagonal :: Bytes: 208.00, Obj:  3.00 NonNull:  8.00 Null:  9.00 scalars: {int=2.0, boolean=2.0}
                 HashBasedTable_SingleRow :: Bytes:  64.48, Obj:  1.00 NonNull:  3.00 Null:  2.06 scalars: {int=1.0}
-                ImmutableTable_SingleRow :: Bytes: 151.59, Obj:  3.00 NonNull: 10.00 Null:  1.45 scalars: {int=2.0}
+                ImmutableTable_SingleRow :: Bytes: 151.63, Obj:  3.00 NonNull: 10.00 Null:  1.45 scalars: {int=2.0}
                 TreeBasedTable_SingleRow :: Bytes:  64.00, Obj:  1.00 NonNull:  4.00 Null:  1.00 scalars: {boolean=1.0}
              HashBasedTable_SingleColumn :: Bytes: 216.48, Obj:  4.00 NonNull:  7.00 Null:  7.06 scalars: {int=5.0, float=1.0}
-             ImmutableTable_SingleColumn :: Bytes: 183.61, Obj:  4.00 NonNull: 11.00 Null:  1.45 scalars: {int=2.0}
+             ImmutableTable_SingleColumn :: Bytes: 183.62, Obj:  4.00 NonNull: 11.00 Null:  1.45 scalars: {int=2.0}
              TreeBasedTable_SingleColumn :: Bytes: 208.00, Obj:  3.00 NonNull:  8.00 Null:  9.00 scalars: {int=2.0, boolean=2.0}
 }}}
 For a Table of N elements:
@@ -337,7 +336,7 @@ For a Table of N elements:
 ==========================================           BiMaps           ==========================================
 
                                HashBiMap :: Bytes: 128.97, Obj:  2.00 NonNull:  6.00 Null:  4.12 scalars: {int=2.0}
-                          ImmutableBiMap :: Bytes: 102.25, Obj:  2.00 NonNull:  8.00 Null:  0.78 scalars: {}
+                          ImmutableBiMap :: Bytes: 102.24, Obj:  2.00 NonNull:  8.00 Null:  0.78 scalars: {}
 }}}
 {{{
 ==========================================            Misc            ==========================================
@@ -347,7 +346,7 @@ For a Table of N elements:
                               ArrayDeque :: Bytes:   8.23, Obj:  0.00 NonNull:  1.00 Null:  0.03 scalars: {}
                            PriorityQueue :: Bytes:   8.79, Obj:  0.00 NonNull:  1.00 Null:  0.10 scalars: {}
                    PriorityBlockingQueue :: Bytes:   8.79, Obj:  0.00 NonNull:  1.00 Null:  0.10 scalars: {}
-                   ConcurrentSkipListSet :: Bytes:  60.72, Obj:  1.52 NonNull:  4.30 Null:  0.26 scalars: {int=0.0011340725806451614}
+                   ConcurrentSkipListSet :: Bytes:  60.38, Obj:  1.51 NonNull:  4.27 Null:  0.26 scalars: {int=7.560483870967742E-4}
                     CopyOnWriteArrayList :: Bytes:   8.00, Obj:  0.00 NonNull:  1.00 Null:  0.00 scalars: {}
                      CopyOnWriteArraySet :: Bytes:   8.00, Obj:  0.00 NonNull:  1.00 Null:  0.00 scalars: {}
                               DelayQueue :: Bytes:   8.79, Obj:  0.00 NonNull:  1.00 Null:  0.10 scalars: {}
@@ -361,8 +360,6 @@ For a Table of N elements:
                                Semaphore :: Bytes:  72.00, Obj:  2.00 NonNull:  1.00 Null:  3.00 scalars: [int]
                            ReadWriteLock :: Bytes: 192.00, Obj:  5.00 NonNull:  6.00 Null:  5.00 scalars: [int x 3]
 }}}
-
-
 
 A few more clarifications and observations:
   * `HashMultimap_Worst` means that every key only maps to a single value. The huge memory cost you see is because by default a big hashtable is allocated per key - [http://guava-libraries.googlecode.com/svn/trunk/javadoc/com/google/common/collect/HashMultimap.html#create(int,%20int) you can fine-tune this size though]. Conversely, the "best" case is where a _single_ key maps to all values - there, the per-entry cost degenerates to the per-entry cost of a regular HashMap, for obvious reasons. The per-entry cost of a realistic HashMultimap will be somewhere (depending on the distribution of values in keys) between these two limits. Similarly, it should be obvious why `HashMultiset_Best` reports _zero_ cost in everything. 
