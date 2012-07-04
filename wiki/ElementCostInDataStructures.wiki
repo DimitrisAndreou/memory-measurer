@@ -193,7 +193,7 @@ For a Table of N elements:
                                Semaphore :: Bytes:  40.00, Obj:  2.00 NonNull:  1.00 Null:  3.00 scalars: [int]
                            ReadWriteLock :: Bytes: 112.00, Obj:  5.00 NonNull:  6.00 Null:  5.00 scalars: [int x 3]
 }}}
-
+----
 {{{
 ==========================================     64-bit architecture    ==========================================
 
