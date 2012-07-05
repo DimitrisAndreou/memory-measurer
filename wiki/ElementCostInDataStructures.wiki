@@ -194,6 +194,11 @@ For a Table of N elements:
                            ReadWriteLock :: Bytes: 112.00, Obj:  5.00 NonNull:  6.00 Null:  5.00 scalars: [int x 3]
 }}}
 ----
+----
+----
+----
+----
+----
 {{{
 ==========================================     64-bit architecture    ==========================================
 
