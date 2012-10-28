@@ -58,6 +58,7 @@ No compressed oops used for 64-bit vm (if I report it)
 
                     CompactLinkedHashSet :: Bytes:  31.00, Obj:  0.00 NonNull:  1.00 Null:  0.25 scalars: {int=4.0, long=1.25}
           Singleton CompactLinkedHashSet :: Bytes: 144.00, Obj:  6.00 NonNull:  6.00 Null:  0.00 scalars: [int x 8, float, long]
+
                             ImmutableSet :: Bytes:  12.00, Obj:  0.00 NonNull:  2.00 Null:  1.00 scalars: {}
                   Singleton ImmutableSet :: Bytes:  24.00, Obj:  1.00 NonNull:  1.00 Null:  1.00 scalars: [int]
 
