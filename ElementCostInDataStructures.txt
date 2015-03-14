@@ -1,0 +1,226 @@
+#summary This is the cost per element in major data structures offered by Java and Guava (r11)].
+
+= Cost _per element/entry_ in various well-known Java/Guava data structures =
+
+Ever wondered what's the cost of adding each entry to a `HashMap`? Or one new element in a `TreeSet`? Here are the answers: the cost per-entry for each well-known structure in `Java` and `Guava`. You can use this to estimate the cost of a structure, like this: if the per-entry cost of a structure is `32 bytes`, and your structure contains 1024 elements, the structure's footprint will be around `32 kilobytes`.
+
+Note that non-tree mutable structures are amortized (adding an element might trigger a resize, and be expensive, otherwise it would be cheap), making the measurement of the "average per element cost" measurement hard, but you can expect that the real answers are close to what is reported below (and for some simple structures I know the correct answer analytically, so I can tune the tested sizes to derive the correct measurement).
+
+There is a [http://code-o-matic.blogspot.com/2012/02/updated-memory-cost-per-javaguava.html blog post] about this data as well.
+
+Since the most interesting and analyzed structure here is [`Loading`]`Cache`, here is a short cheat-sheet to help you memorize the cost of each feature:
+
+  * If you use `ConcurrentHashMap`, you pay *8 words* (*32 bytes*) for each entry.
+  * If you switch to `Cache`, add *4 words* (*16 bytes*) for each entry
+  * If you add expiration of any kind (after write, or after access, or both), add *4 words* (*16 bytes*) for each entry
+  * If you use maximumSize(), add *4 words* (*16 bytes*) for each entry
+  * If you use weakKeys(), add *4 words* (*16 bytes*) for each entry
+  * If you use weakValues() or softValues(), add *4 words* (*16 bytes*) for each entry
+
+To put this in perspective: For every two features you pick (expiration, maxSize, weakKeys, weak/softValues), you could have bought a whole new `ConcurrentHashMap` (with the same entries) for the same cost.
+
+*Legend*:
+  * "Obj": the number of objects
+  * "NonNull": the number of non-null _references
+  * "Null": the number of null references
+  * "Scalars": primitives
+
+No compressed oops used for 64-bit vm (if I report it)
+{{{
+==========================================     32-bit architecture    ==========================================
+
+==========================================     Primitive Wrappers     ==========================================
+
+                       java.lang.Boolean :: Bytes:  16.00, Obj:  1.00 NonNull:  0.00 Null:  0.00 scalars: [boolean]
+                          java.lang.Byte :: Bytes:  16.00, Obj:  1.00 NonNull:  0.00 Null:  0.00 scalars: [byte]
+                         java.lang.Short :: Bytes:  16.00, Obj:  1.00 NonNull:  0.00 Null:  0.00 scalars: [short]
+                     java.lang.Character :: Bytes:  16.00, Obj:  1.00 NonNull:  0.00 Null:  0.00 scalars: [char]
+                       java.lang.Integer :: Bytes:  16.00, Obj:  1.00 NonNull:  0.00 Null:  0.00 scalars: [int]
+                          java.lang.Long :: Bytes:  16.00, Obj:  1.00 NonNull:  0.00 Null:  0.00 scalars: [long]
+                         java.lang.Float :: Bytes:  16.00, Obj:  1.00 NonNull:  0.00 Null:  0.00 scalars: [float]
+                        java.lang.Double :: Bytes:  16.00, Obj:  1.00 NonNull:  0.00 Null:  0.00 scalars: [double]
+}}}
+{{{
+==========================================   Basic Lists, Sets, Maps  ==========================================
+
+                               ArrayList :: Bytes:   5.00, Obj:  0.00 NonNull:  1.00 Null:  0.25 scalars: {}
+                     Singleton ArrayList :: Bytes:  40.00, Obj:  2.00 NonNull:  2.00 Null:  0.00 scalars: [int x 2]
+
+                              LinkedList :: Bytes:  24.00, Obj:  1.00 NonNull:  3.00 Null:  0.00 scalars: {}
+                    Singleton LinkedList :: Bytes:  48.00, Obj:  2.00 NonNull:  3.00 Null:  2.00 scalars: [int x 2]
+
+                           ImmutableList :: Bytes:   4.00, Obj:  0.00 NonNull:  1.00 Null:  0.00 scalars: {}
+                 Singleton ImmutableList :: Bytes:  16.00, Obj:  1.00 NonNull:  1.00 Null:  1.00 scalars: []
+
+                                 HashSet :: Bytes:  32.00, Obj:  1.00 NonNull:  3.00 Null:  2.00 scalars: {int=1.0}
+                       Singleton HashSet :: Bytes: 168.00, Obj:  5.00 NonNull:  5.00 Null: 19.00 scalars: [int x 4, float]
+
+                          CompactHashSet :: Bytes:  21.00, Obj:  0.00 NonNull:  1.00 Null:  0.25 scalars: {long=1.25, int=1.5}
+                Singleton CompactHashSet :: Bytes:  96.00, Obj:  4.00 NonNull:  4.00 Null:  0.00 scalars: [long, int x 4, float]
+
+                    CompactLinkedHashSet :: Bytes:  31.00, Obj:  0.00 NonNull:  1.00 Null:  0.25 scalars: {long=1.25, int=4.0}
+          Singleton CompactLinkedHashSet :: Bytes: 144.00, Obj:  6.00 NonNull:  6.00 Null:  0.00 scalars: [long, int x 8, float]
+
+                            ImmutableSet :: Bytes:  12.00, Obj:  0.00 NonNull:  2.00 Null:  1.00 scalars: {}
+                  Singleton ImmutableSet :: Bytes:  24.00, Obj:  1.00 NonNull:  1.00 Null:  1.00 scalars: [int]
+
+                           LinkedHashSet :: Bytes:  40.00, Obj:  1.00 NonNull:  5.00 Null:  2.00 scalars: {int=1.0}
+                 Singleton LinkedHashSet :: Bytes: 216.00, Obj:  6.00 NonNull: 10.00 Null: 22.00 scalars: [int x 5, float, boolean]
+
+                                 TreeSet :: Bytes:  32.00, Obj:  1.00 NonNull:  4.00 Null:  1.00 scalars: {boolean=1.0}
+                       Singleton TreeSet :: Bytes: 104.00, Obj:  4.00 NonNull:  4.00 Null:  9.00 scalars: [int x 2, boolean]
+
+                      ImmutableSortedSet :: Bytes:   4.00, Obj:  0.00 NonNull:  1.00 Null:  0.00 scalars: {}
+            Singleton ImmutableSortedSet :: Bytes:  48.00, Obj:  3.00 NonNull:  3.00 Null:  3.00 scalars: []
+
+                                 HashMap :: Bytes:  32.00, Obj:  1.00 NonNull:  3.00 Null:  2.00 scalars: {int=1.0}
+                       Singleton HashMap :: Bytes: 144.00, Obj:  3.00 NonNull:  4.00 Null: 19.00 scalars: [int x 4, float]
+
+                            ImmutableMap :: Bytes:  27.00, Obj:  1.00 NonNull:  4.00 Null:  0.38 scalars: {}
+                  Singleton ImmutableMap :: Bytes:  40.00, Obj:  1.00 NonNull:  2.00 Null:  5.00 scalars: []
+
+                           LinkedHashMap :: Bytes:  40.00, Obj:  1.00 NonNull:  5.00 Null:  2.00 scalars: {int=1.0}
+                 Singleton LinkedHashMap :: Bytes: 192.00, Obj:  4.00 NonNull:  9.00 Null: 22.00 scalars: [int x 5, float, boolean]
+
+                         IdentityHashMap :: Bytes:  16.00, Obj:  0.00 NonNull:  2.00 Null:  2.00 scalars: {}
+                  Singleton IdentityHash :: Bytes:  88.00, Obj:  2.00 NonNull:  3.00 Null:  9.00 scalars: [int x 3]
+
+                                 TreeMap :: Bytes:  32.00, Obj:  1.00 NonNull:  4.00 Null:  1.00 scalars: {boolean=1.0}
+                  Singleton IdentityHash :: Bytes:  80.00, Obj:  2.00 NonNull:  3.00 Null:  9.00 scalars: [int x 2, boolean]
+
+                      ImmutableSortedMap :: Bytes:   8.00, Obj:  0.00 NonNull:  2.00 Null:  0.00 scalars: {}
+            Singleton ImmutableSortedMap :: Bytes: 104.00, Obj:  5.00 NonNull:  6.00 Null:  9.00 scalars: []
+          newSetFromMap(IdentityHashMap) :: Bytes:  16.00, Obj:  0.00 NonNull:  2.00 Null:  2.00 scalars: {}
+}}}
+{{{
+========================================== ConcurrentHashMap/MapMaker/Cache ==========================================
+
+                       ConcurrentHashMap :: Bytes:  32.30, Obj:  1.00 NonNull:  3.00 Null:  2.06 scalars: {int=1.003024193548387, float=7.560483870967742E-4}
+                                MapMaker :: Bytes:  32.24, Obj:  1.00 NonNull:  3.00 Null:  2.06 scalars: {int=1.0}
+                      MapMaker_Computing :: Bytes:  48.25, Obj:  2.00 NonNull:  4.00 Null:  2.06 scalars: {int=1.0}
+                                   Cache :: Bytes:  48.25, Obj:  2.00 NonNull:  4.00 Null:  2.06 scalars: {int=1.0}
+                        MapMaker_Expires :: Bytes:  64.25, Obj:  2.00 NonNull:  6.00 Null:  2.06 scalars: {long=1.0, int=1.0}
+                           Cache_Expires :: Bytes:  64.25, Obj:  2.00 NonNull:  6.00 Null:  2.06 scalars: {long=1.0, int=1.0}
+                        MapMaker_MaxSize :: Bytes:  56.24, Obj:  2.00 NonNull:  6.00 Null:  2.06 scalars: {int=1.0}
+                           Cache_MaxSize :: Bytes:  64.25, Obj:  2.00 NonNull:  6.00 Null:  2.06 scalars: {long=1.0, int=1.0}
+                MapMaker_Expires_MaxSize :: Bytes:  72.24, Obj:  2.00 NonNull:  8.00 Null:  2.06 scalars: {long=1.0, int=1.0}
+                   Cache_Expires_MaxSize :: Bytes:  80.24, Obj:  2.00 NonNull:  8.00 Null:  2.06 scalars: {long=2.0, int=1.0}
+                       MapMaker_WeakKeys :: Bytes:  64.24, Obj:  2.00 NonNull:  5.00 Null:  4.06 scalars: {int=1.0}
+                          Cache_WeakKeys :: Bytes:  64.24, Obj:  2.00 NonNull:  5.00 Null:  4.06 scalars: {int=1.0}
+                     MapMaker_WeakValues :: Bytes:  64.24, Obj:  2.00 NonNull:  6.00 Null:  4.06 scalars: {int=1.0}
+                        Cache_WeakValues :: Bytes:  64.25, Obj:  2.00 NonNull:  6.00 Null:  4.06 scalars: {int=1.0}
+                 MapMaker_WeakKeysValues :: Bytes:  80.24, Obj:  2.00 NonNull:  7.00 Null:  6.06 scalars: {int=1.0}
+                    Cache_WeakKeysValues :: Bytes:  80.25, Obj:  2.00 NonNull:  7.00 Null:  6.06 scalars: {int=1.0}
+               MapMaker_MaxSize_WeakKeys :: Bytes:  72.24, Obj:  2.00 NonNull:  7.00 Null:  4.06 scalars: {int=1.0}
+                  Cache_MaxSize_WeakKeys :: Bytes:  80.24, Obj:  2.00 NonNull:  7.00 Null:  4.06 scalars: {long=1.0, int=1.0}
+             MapMaker_MaxSize_WeakValues :: Bytes:  72.24, Obj:  2.00 NonNull:  8.00 Null:  4.06 scalars: {int=1.0}
+                Cache_MaxSize_WeakValues :: Bytes:  80.24, Obj:  2.00 NonNull:  8.00 Null:  4.06 scalars: {long=1.0, int=1.0}
+         MapMaker_MaxSize_WeakKeysValues :: Bytes:  88.24, Obj:  2.00 NonNull:  9.00 Null:  6.06 scalars: {int=1.0}
+            Cache_MaxSize_WeakKeysValues :: Bytes:  96.24, Obj:  2.00 NonNull:  9.00 Null:  6.06 scalars: {long=1.0, int=1.0}
+               MapMaker_Expires_WeakKeys :: Bytes:  80.24, Obj:  2.00 NonNull:  7.00 Null:  4.06 scalars: {long=1.0, int=1.0}
+                  Cache_Expires_WeakKeys :: Bytes:  80.24, Obj:  2.00 NonNull:  7.00 Null:  4.06 scalars: {long=1.0, int=1.0}
+             MapMaker_Expires_WeakValues :: Bytes:  80.25, Obj:  2.00 NonNull:  8.00 Null:  4.06 scalars: {long=1.0, int=1.0}
+                Cache_Expires_WeakValues :: Bytes:  80.24, Obj:  2.00 NonNull:  8.00 Null:  4.06 scalars: {long=1.0, int=1.0}
+         MapMaker_Expires_WeakKeysValues :: Bytes:  96.24, Obj:  2.00 NonNull:  9.00 Null:  6.06 scalars: {long=1.0, int=1.0}
+            Cache_Expires_WeakKeysValues :: Bytes:  96.24, Obj:  2.00 NonNull:  9.00 Null:  6.06 scalars: {long=1.0, int=1.0}
+       MapMaker_Expires_MaxSize_WeakKeys :: Bytes:  88.24, Obj:  2.00 NonNull:  9.00 Null:  4.06 scalars: {long=1.0, int=1.0}
+          Cache_Expires_MaxSize_WeakKeys :: Bytes:  96.25, Obj:  2.00 NonNull:  9.00 Null:  4.06 scalars: {long=2.0, int=1.0}
+     MapMaker_Expires_MaxSize_WeakValues :: Bytes:  88.24, Obj:  2.00 NonNull: 10.00 Null:  4.06 scalars: {long=1.0, int=1.0}
+        Cache_Expires_MaxSize_WeakValues :: Bytes:  96.24, Obj:  2.00 NonNull: 10.00 Null:  4.06 scalars: {long=2.0, int=1.0}
+ MapMaker_Expires_MaxSize_WeakKeysValues :: Bytes: 104.24, Obj:  2.00 NonNull: 11.00 Null:  6.06 scalars: {long=1.0, int=1.0}
+    Cache_Expires_MaxSize_WeakKeysValues :: Bytes: 112.24, Obj:  2.00 NonNull: 11.00 Null:  6.06 scalars: {long=2.0, int=1.0}
+}}}
+{{{
+==========================================         Multisets          ==========================================
+
+                      HashMultiset_Worst :: Bytes:  48.24, Obj:  2.00 NonNull:  3.00 Null:  2.06 scalars: {int=2.0}
+                LinkedHashMultiset_Worst :: Bytes:  56.24, Obj:  2.00 NonNull:  5.00 Null:  2.06 scalars: {int=2.0}
+                      TreeMultiset_Worst :: Bytes:  48.00, Obj:  1.00 NonNull:  4.00 Null:  1.00 scalars: {long=1.0, int=3.0}
+            ConcurrentHashMultiset_Worst :: Bytes:  48.30, Obj:  2.00 NonNull:  3.00 Null:  2.06 scalars: {int=2.003024193548387, float=7.560483870967742E-4}
+        ImmutableMultisetPopulator_Worst :: Bytes:  26.94, Obj:  1.00 NonNull:  4.00 Null:  0.38 scalars: {}
+  ImmutableSortedMultisetPopulator_Worst :: Bytes:  16.02, Obj:  0.00 NonNull:  1.00 Null:  0.00 scalars: {long=1.0, int=1.0005040322580645}
+
+                      HashMultiset_Best  :: Bytes:   0.00, Obj:  0.00 NonNull:  0.00 Null:  0.00 scalars: {}
+                LinkedHashMultiset_Best  :: Bytes:   0.00, Obj:  0.00 NonNull:  0.00 Null:  0.00 scalars: {}
+                      TreeMultiset_Best  :: Bytes:   0.00, Obj:  0.00 NonNull:  0.00 Null:  0.00 scalars: {}
+            ConcurrentHashMultiset_Best  :: Bytes:   0.00, Obj:  0.00 NonNull:  0.00 Null:  0.00 scalars: {}
+        ImmutableMultisetPopulator_Best  :: Bytes:   0.00, Obj:  0.00 NonNull:  0.00 Null:  0.00 scalars: {}
+  ImmutableSortedMultisetPopulator_Best  :: Bytes:   0.00, Obj:  0.00 NonNull:  0.00 Null:  0.00 scalars: {}
+}}}
+{{{
+==========================================         Multimaps          ==========================================
+
+                      HashMultimap_Worst :: Bytes: 144.24, Obj:  5.00 NonNull:  8.00 Null:  9.06 scalars: {int=5.0, float=1.0}
+                LinkedHashMultimap_Worst :: Bytes: 144.24, Obj:  4.00 NonNull: 17.00 Null:  4.06 scalars: {int=4.0}
+                      TreeMultimap_Worst :: Bytes: 128.00, Obj:  4.00 NonNull:  9.00 Null:  9.00 scalars: {int=2.0, boolean=2.0}
+                 ArrayListMultimap_Worst :: Bytes:  80.24, Obj:  3.00 NonNull:  5.00 Null:  4.06 scalars: {int=3.0}
+                LinkedListMultimap_Worst :: Bytes: 152.73, Obj:  5.00 NonNull: 15.00 Null:  8.18 scalars: {int=4.0}
+                 ImmutableMultimap_Worst :: Bytes:  43.02, Obj:  2.00 NonNull:  5.00 Null:  1.39 scalars: {}
+             ImmutableListMultimap_Worst :: Bytes:  43.03, Obj:  2.00 NonNull:  5.00 Null:  1.39 scalars: {}
+              ImmutableSetMultimap_Worst :: Bytes:  51.00, Obj:  2.00 NonNull:  5.00 Null:  1.39 scalars: {int=1.0}
+
+                      HashMultimap_Best  :: Bytes:  32.24, Obj:  1.00 NonNull:  3.00 Null:  2.06 scalars: {int=1.0}
+                LinkedHashMultimap_Best  :: Bytes:  44.12, Obj:  1.00 NonNull:  7.00 Null:  1.03 scalars: {int=1.0}
+                      TreeMultimap_Best  :: Bytes:  32.00, Obj:  1.00 NonNull:  4.00 Null:  1.00 scalars: {boolean=1.0}
+                 ArrayListMultimap_Best  :: Bytes:   4.07, Obj:  0.00 NonNull:  1.00 Null:  0.02 scalars: {}
+                LinkedListMultimap_Best  :: Bytes:  32.00, Obj:  1.00 NonNull:  6.00 Null:  0.00 scalars: {}
+                 ImmutableMultimap_Best  :: Bytes:   4.00, Obj:  0.00 NonNull:  1.00 Null:  0.00 scalars: {}
+             ImmutableListMultimap_Best  :: Bytes:   4.00, Obj:  0.00 NonNull:  1.00 Null:  0.00 scalars: {}
+              ImmutableSetMultimap_Best  :: Bytes:  12.24, Obj:  0.00 NonNull:  2.00 Null:  1.06 scalars: {}
+}}}
+Note: we now use the default static factories for each multimap. Older
+versions used #create(1, 1) factory where applicable, thus smaller numbers
+were reported. E.g. now HashMultimap_Worst is 144, with the default create(), but:
+ * with create(x, 1), the cost is ~136 bytes
+ * with create(x, 8), the old default (<= Guava 12) the cost was ~192
+{{{
+==========================================           Tables           ==========================================
+
+                   HashBasedTable_Square :: Bytes:  30.61, Obj:  1.03 NonNull:  3.04 Null:  1.47 scalars: {int=1.0428427419354838, float=0.010710685483870967}
+                   ImmutableTable_Square :: Bytes:  41.34, Obj:  1.04 NonNull:  6.10 Null:  1.08 scalars: {int=0.032132056451612906}
+                   TreeBasedTable_Square :: Bytes:  32.86, Obj:  1.02 NonNull:  4.04 Null:  1.09 scalars: {int=0.021421370967741934, boolean=1.010710685483871}
+                 HashBasedTable_Diagonal :: Bytes: 120.24, Obj:  4.00 NonNull:  7.00 Null:  7.06 scalars: {int=5.0, float=1.0}
+                 ImmutableTable_Diagonal :: Bytes: 170.26, Obj:  5.00 NonNull: 17.00 Null: 11.84 scalars: {}
+                 TreeBasedTable_Diagonal :: Bytes: 112.00, Obj:  3.00 NonNull:  8.00 Null:  9.00 scalars: {int=2.0, boolean=2.0}
+                HashBasedTable_SingleRow :: Bytes:  32.24, Obj:  1.00 NonNull:  3.00 Null:  2.06 scalars: {int=1.0}
+                ImmutableTable_SingleRow :: Bytes:  87.26, Obj:  3.00 NonNull: 10.00 Null:  1.45 scalars: {int=2.0}
+                TreeBasedTable_SingleRow :: Bytes:  32.00, Obj:  1.00 NonNull:  4.00 Null:  1.00 scalars: {boolean=1.0}
+             HashBasedTable_SingleColumn :: Bytes: 120.24, Obj:  4.00 NonNull:  7.00 Null:  7.06 scalars: {int=5.0, float=1.0}
+             ImmutableTable_SingleColumn :: Bytes: 103.25, Obj:  4.00 NonNull: 11.00 Null:  1.45 scalars: {int=2.0}
+             TreeBasedTable_SingleColumn :: Bytes: 112.00, Obj:  3.00 NonNull:  8.00 Null:  9.00 scalars: {int=2.0, boolean=2.0}
+}}}
+For a Table of N elements:
+ * 'Square' means that we have about sqrt(N) rows and sqrt(N) columns.
+ * 'Diagonal' means N rows and N columns
+ * 'SingleRow', 1 row, N columns
+ * 'SingleColumn', N rows, 1 column
+{{{
+==========================================           BiMaps           ==========================================
+
+                               HashBiMap :: Bytes:  40.24, Obj:  1.00 NonNull:  4.00 Null:  2.06 scalars: {int=2.0}
+                          ImmutableBiMap :: Bytes:  53.94, Obj:  2.00 NonNull:  8.00 Null:  0.77 scalars: {}
+}}}
+{{{
+==========================================            Misc            ==========================================
+
+                             WeakHashMap :: Bytes:  48.24, Obj:  1.00 NonNull:  4.00 Null:  4.06 scalars: {int=1.0}
+                              ArrayDeque :: Bytes:   4.11, Obj:  0.00 NonNull:  1.00 Null:  0.03 scalars: {}
+                           PriorityQueue :: Bytes:   4.41, Obj:  0.00 NonNull:  1.00 Null:  0.10 scalars: {}
+                   PriorityBlockingQueue :: Bytes:   4.41, Obj:  0.00 NonNull:  1.00 Null:  0.10 scalars: {}
+                   ConcurrentSkipListSet :: Bytes:  35.85, Obj:  1.49 NonNull:  4.23 Null:  0.25 scalars: {int=0.0011340725806451614}
+                    CopyOnWriteArrayList :: Bytes:   4.00, Obj:  0.00 NonNull:  1.00 Null:  0.00 scalars: {}
+                     CopyOnWriteArraySet :: Bytes:   4.00, Obj:  0.00 NonNull:  1.00 Null:  0.00 scalars: {}
+                              DelayQueue :: Bytes:   4.41, Obj:  0.00 NonNull:  1.00 Null:  0.10 scalars: {}
+                     LinkedBlockingQueue :: Bytes:  16.00, Obj:  1.00 NonNull:  2.00 Null:  0.00 scalars: {}
+                     LinkedBlockingDeque :: Bytes:  24.00, Obj:  1.00 NonNull:  3.00 Null:  0.00 scalars: {}
+}}}
+{{{
+==========================================   Synchronization Structures ==========================================
+
+                           ReentrantLock :: Bytes:  40.00, Obj:  2.00 NonNull:  1.00 Null:  3.00 scalars: [int]
+                               Semaphore :: Bytes:  40.00, Obj:  2.00 NonNull:  1.00 Null:  3.00 scalars: [int]
+                           ReadWriteLock :: Bytes: 112.00, Obj:  5.00 NonNull:  6.00 Null:  5.00 scalars: [int x 3]
+}}}
+
+A few more clarifications and observations:
+  * `HashMultimap_Worst` means that every key only maps to a single value. The huge memory cost you see is because by default a big hashtable is allocated per key - [http://guava-libraries.googlecode.com/svn/trunk/javadoc/com/google/common/collect/HashMultimap.html#create(int,%20int) you can fine-tune this size though]. Conversely, the "best" case is where a _single_ key maps to all values - there, the per-entry cost degenerates to the per-entry cost of a regular HashMap, for obvious reasons. The per-entry cost of a realistic HashMultimap will be somewhere (depending on the distribution of values in keys) between these two limits. Similarly, it should be obvious why `HashMultiset_Best` reports _zero_ cost in everything. 
