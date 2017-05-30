@@ -60,12 +60,17 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+
+import org.junit.Test;
+
 import objectexplorer.MemoryMeasurer;
 import objectexplorer.ObjectGraphMeasurer;
 import objectexplorer.ObjectGraphMeasurer.Footprint;
 
 public class ElementCostOfDataStructures {
-  public static void main(String[] args) throws Exception {
+    
+  @Test
+  public void calculate() throws Exception {
     caption(String.format("    %2s-bit architecture   ", System.getProperty("sun.arch.data.model")));
     caption("  Basic Lists, Sets, Maps ");
 
